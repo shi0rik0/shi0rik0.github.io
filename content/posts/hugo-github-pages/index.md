@@ -35,7 +35,7 @@ draft = true
 
 将`title`改成你想要的标题，并将`draft`改为false。接下来你就可以在下面用Markdown的语法写你的博文了。写完之后，可以用`hugo server`命令启动一个HTTP服务器来预览你的网站。确认完没问题后，就可以把更改提交到远程仓库上了。
 
-```
+```bash
 git add .
 git commit -m "init blog"
 git push
