@@ -5,13 +5,10 @@
     <loc>//localhost:6001/</loc>
     <lastmod>2024-03-15T19:13:34+08:00</lastmod>
   </url><url>
-    <loc>//localhost:6001/posts/my-first-post/</loc>
-    <lastmod>2024-03-15T19:13:34+08:00</lastmod>
-  </url><url>
-    <loc>//localhost:6001/posts/second-post/</loc>
-    <lastmod>2024-03-15T19:13:34+08:00</lastmod>
-  </url><url>
     <loc>//localhost:6001/posts/</loc>
+    <lastmod>2024-03-15T19:13:34+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:6001/posts/virtualbox-port-forward/</loc>
     <lastmod>2024-03-15T19:13:34+08:00</lastmod>
   </url><url>
     <loc>//localhost:6001/categories/</loc>
