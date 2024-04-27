@@ -7,7 +7,7 @@ draft: false
 谈到在后台运行进程，大多数人第一个想到的可能是直接在命令后面加一个&，这么做有一些缺点：
 
 1. 需要强行终止进程的时候，必须记住或者查询进程的名称、ID等等。
-2. 在VSCode下，使用&似乎会导致一个奇怪的bug，使得终端输出紊乱甚至无法使用。
+2. 有时候使用&似乎会导致一个奇怪的bug，使得终端输出紊乱甚至无法使用（参见[这个StackOverflow问题](https://askubuntu.com/questions/1459049/bash-script-launching-background-process-breaks-terminal-output-and-kills-backgr)）。
 
 因此，我发现使用screen命令是一种更好的解决方案。
 
