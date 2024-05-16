@@ -1,0 +1,35 @@
+---
+title: "Python循环语句中的else子句"
+date: 2024-05-16T20:23:06+08:00
+draft: false
+---
+
+Python的循环语句（while和for语句）有一个特殊的语法，就是它们支持else子句。下面用一个例子来说明其作用。
+
+```python
+for i in a:
+    if find(i):
+        do_something(i)
+        break
+else:
+    not_found()
+```
+
+在这个代码片段中，我们尝试在容器`a`中寻找第一个符合某种条件的元素，然后对这个元素进行某些处理。如果在容器中没有找到符合条件的元素，就执行另外的逻辑。
+
+简单来说，当一个循环语句是正常结束的时候（也就是说不是通过break中止的），else子句才会执行。
+
+如果不用else子句，那么就必须引入一个额外的bool变量才能实现相同的逻辑：
+
+```python
+found = False
+for i in a:
+    if find(i):
+        found = True
+        do_something(i)
+        break
+if not found:
+    not_found()
+```
+
+最后指出一点，else子句早在Python 2就已经被支持了，这不是一个最近才添加的语法糖，所以这个特性适用于几乎所有Python版本。
