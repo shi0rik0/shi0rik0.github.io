@@ -1,0 +1,364 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Python标准库的简易HTTP服务器 - </title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="Python标准库有一个名为http.server的模块，提供了简易的HTTP服务器功能。下面的示例代码用这个模块启动了一个简单的HTTP服务器。这个服务器只支持POST方法，会打印POST请求的信息，并返回一个固定的字符串。
+from http.server import BaseHTTPRequestHandler, HTTPServer class MyHandler(BaseHTTPRequestHandler): def do_POST(self): print(&#39;method:&#39;, self.command) print(&#39;path:&#39;, self.path) print(&#39;HTTP version:&#39;, self.request_version) print(&#39;headers:&#39;, self.headers) content_length = int(self.headers[&#39;Content-Length&#39;]) body = self.rfile.read(content_length).decode() print(&#39;body:&#39;, body) response = b&#39;Roger!&#39; self.send_response(200) self.send_header(&#39;Content-Length&#39;, len(response)) self.end_headers() self.wfile.write(response) if __name__ == &#39;__main__&#39;: server = HTTPServer((&#39;0.0.0.0&#39;, 8080), MyHandler) server.serve_forever() 要测试这个服务器，可以发送一个简单的POST请求：
+import requests res = requests.post(&#39;http://localhost:8080/&#39;, data=&#39;Hello!&#39;) print(res.text) 在服务端应该会看到类似下面的输出：
+method: POSTpath: /HTTP version: HTTP/1.1headers: Host: localhost:8080User-Agent: python-requests/2.32.3Accept-Encoding: gzip, deflateAccept: */*Connection: keep-aliveContent-Length: 6body: Hello!" />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="//localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="//localhost:1313/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="//localhost:1313/favicon.ico" />
+  <link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.126.1">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="//localhost:1313/"
+      ></a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Python标准库的简易HTTP服务器</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jun 30, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>Python标准库有一个名为<code>http.server</code>的模块，提供了简易的HTTP服务器功能。下面的示例代码用这个模块启动了一个简单的HTTP服务器。这个服务器只支持POST方法，会打印POST请求的信息，并返回一个固定的字符串。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> http.server <span style="color:#f92672">import</span> BaseHTTPRequestHandler, HTTPServer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyHandler</span>(BaseHTTPRequestHandler):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_POST</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;method:&#39;</span>, self<span style="color:#f92672">.</span>command)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;path:&#39;</span>, self<span style="color:#f92672">.</span>path)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;HTTP version:&#39;</span>, self<span style="color:#f92672">.</span>request_version)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;headers:&#39;</span>, self<span style="color:#f92672">.</span>headers)
+</span></span><span style="display:flex;"><span>        content_length <span style="color:#f92672">=</span> int(self<span style="color:#f92672">.</span>headers[<span style="color:#e6db74">&#39;Content-Length&#39;</span>])
+</span></span><span style="display:flex;"><span>        body <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>rfile<span style="color:#f92672">.</span>read(content_length)<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#39;body:&#39;</span>, body)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;Roger!&#39;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>send_response(<span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>send_header(<span style="color:#e6db74">&#39;Content-Length&#39;</span>, len(response))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>end_headers()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wfile<span style="color:#f92672">.</span>write(response)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    server <span style="color:#f92672">=</span> HTTPServer((<span style="color:#e6db74">&#39;0.0.0.0&#39;</span>, <span style="color:#ae81ff">8080</span>), MyHandler)
+</span></span><span style="display:flex;"><span>    server<span style="color:#f92672">.</span>serve_forever()
+</span></span></code></pre></div><p>要测试这个服务器，可以发送一个简单的POST请求：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(<span style="color:#e6db74">&#39;http://localhost:8080/&#39;</span>, data<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Hello!&#39;</span>)
+</span></span><span style="display:flex;"><span>print(res<span style="color:#f92672">.</span>text)
+</span></span></code></pre></div><p>在服务端应该会看到类似下面的输出：</p>
+<pre tabindex="0"><code>method: POST
+path: /
+HTTP version: HTTP/1.1
+headers: Host: localhost:8080
+User-Agent: python-requests/2.32.3
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Content-Length: 6
+
+
+body: Hello!
+</code></pre><p>而客户端则会收到如下的响应：</p>
+<pre tabindex="0"><code>Roger!
+</code></pre><p>下面对示例代码的关键部分进行更加详细地说明。</p>
+<p>HTTP服务器的具体逻辑是通过继承<code>BaseHTTPRequestHandler</code>基类来实现的。当HTTP服务器收到GET请求时，就会调用对象的<code>do_GET()</code>方法，收到POST请求时会调用对象的<code>do_POST()</code>方法，以此类推。</p>
+<p><code>BaseHTTPRequestHandler</code>基类提供了访问HTTP请求内容以及发送响应的接口。</p>
+<p>HTTP请求的request line可以通过<code>command</code>、<code>path</code>和<code>request_version</code>属性来获取，它们都是字符串。请求的头部信息可以通过<code>headers</code>属性获取。<code>headers</code>的类型是<code>http.client.HTTPMessage</code>，是一个类似于<code>dict</code>的对象。通过读取<code>rfile</code>，可以读取请求的body部分。</p>
+<p>发送响应只需要往<code>wfile</code>中写入数据即可。发送HTTP响应的响应码和头部的时候，用<code>send_response()</code>和<code>send_header()</code>方法会更加方便，这些方法的底层实现依然是往<code>wfile</code>中写入数据，真正写入数据是在调用<code>end_headers()</code>的时候。</p>
+<p><code>http.server</code>模块本身也提供了一个已经实现了的子类<code>SimpleHTTPRequestHandler</code>。通过在命令行输入<code>python -m http.server 8080</code>就可以快速启动一个使用了<code>SimpleHTTPRequestHandler</code>的HTTP服务器。</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/vscode-multi-target-debugging/"
+      ><span class="mr-1.5">←</span><span>如何在VSCode中同时调试多个进程</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/ubuntu-common-packages/"
+      ><span>Ubuntu常用软件包</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="//localhost:1313/"></a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

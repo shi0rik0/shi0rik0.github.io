@@ -1,0 +1,331 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>关于LaTeX的各种算法伪代码宏包 - </title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="在用LaTeX描述算法的时候，经常会用到algorithm、algorithmic、algorithmicx、algpseudocode、algcompatible、algorithm2e等各种宏包。这些宏包关系比较复杂，并且用法也存在差异，经常会引发混淆。本文就对这些宏包的作用进行简要的介绍。
+首先，这些宏包可以分为两大类，algorithm2e单独算作一类，而其他的是另一类。任何算法都可以分为算法标题和算法主体两个部分。对于algorithm2e宏包而言，算法标题和算法主体都通过algorithm环境来实现。而对于其他的宏包来说，算法标题通过algorithm环境实现，算法主体通过algorithmic环境实现。也就是说，如果你用的是algorithm2e宏包，那么你的算法代码大概就是下面这样：
+\begin{algorithm} \caption{An algorithm with caption}\label{alg:cap} % 算法主体 \end{algorithm} 而如果用其他的宏包，那么就会变成下面这样：
+\begin{algorithm} \caption{An algorithm with caption}\label{alg:cap} \begin{algorithmic} % 算法主体 \end{algorithmic} \end{algorithm} 所以说，如果你用的是algorithm2e宏包，那么只需要导入这一个宏包就行。algorithm2e宏包里面包含了一个一步到位的超强algorithm环境。而如果你用的是其他宏包，就必须组合使用两个宏包，一个是algorithm宏包，它提供了一个专门用于显示算法标题的algorithm环境，另外一个则是algorithmic、algorithmicx、algpseudocode和algcompatible中的其中一个，它们都提供了用于显示算法主体的algorithmic环境。
+接下来介绍一下algorithmic、algorithmicx、algpseudocode和algcompatible的区别。algorithmic宏包是最早的，现在已经不推荐使用。algorithmicx是algorithmic的改进版，和algorithmic不同，algorithmicx没有提供预定义的语句，只提供了定义语句的命令，因此单纯用algorithmicx写伪代码会很麻烦。algpseudocode和algcompatible则是在algorithmicx的基础上提供了一组定义好的语句。algpseudocode和algcompatible的主要区别是algcompatible额外提供了对于algorithmic的兼容性，如果不需要兼容的话，还是更推荐使用algpseudocode。导入algpseudocode或者algcompatible都会顺便把algorithmicx也导入进来，所以导入了algpseudocode或者algcompatible就不用再导入algorithmicx了。
+最后是省流版：目前LaTeX的算法伪代码宏包主要就两种选择。第一种是\usepackage{algorithm, algpseudocode}，第二种是\usepackage{algorithm2e}。它们的语法是不一样的，选择一个自己喜欢的就行。" />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="//localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="//localhost:1313/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="//localhost:1313/favicon.ico" />
+  <link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.126.1">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="//localhost:1313/"
+      ></a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">关于LaTeX的各种算法伪代码宏包</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>May 19, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>在用LaTeX描述算法的时候，经常会用到algorithm、algorithmic、algorithmicx、algpseudocode、algcompatible、algorithm2e等各种宏包。这些宏包关系比较复杂，并且用法也存在差异，经常会引发混淆。本文就对这些宏包的作用进行简要的介绍。</p>
+<p>首先，这些宏包可以分为两大类，algorithm2e单独算作一类，而其他的是另一类。任何算法都可以分为算法标题和算法主体两个部分。对于algorithm2e宏包而言，算法标题和算法主体都通过algorithm环境来实现。而对于其他的宏包来说，算法标题通过algorithm环境实现，算法主体通过algorithmic环境实现。也就是说，如果你用的是algorithm2e宏包，那么你的算法代码大概就是下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithm}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\caption</span>{An algorithm with caption}<span style="color:#66d9ef">\label</span>{alg:cap}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 算法主体
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{algorithm}
+</span></span></code></pre></div><p>而如果用其他的宏包，那么就会变成下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithm}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\caption</span>{An algorithm with caption}<span style="color:#66d9ef">\label</span>{alg:cap}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithmic}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">% 算法主体
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">\end</span>{algorithmic}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{algorithm}
+</span></span></code></pre></div><p>所以说，如果你用的是algorithm2e宏包，那么只需要导入这一个宏包就行。algorithm2e宏包里面包含了一个一步到位的超强algorithm环境。而如果你用的是其他宏包，就必须组合使用两个宏包，一个是algorithm宏包，它提供了一个专门用于显示算法标题的algorithm环境，另外一个则是algorithmic、algorithmicx、algpseudocode和algcompatible中的其中一个，它们都提供了用于显示算法主体的algorithmic环境。</p>
+<p>接下来介绍一下algorithmic、algorithmicx、algpseudocode和algcompatible的区别。algorithmic宏包是最早的，现在已经不推荐使用。algorithmicx是algorithmic的改进版，和algorithmic不同，algorithmicx没有提供预定义的语句，只提供了定义语句的命令，因此单纯用algorithmicx写伪代码会很麻烦。algpseudocode和algcompatible则是在algorithmicx的基础上提供了一组定义好的语句。algpseudocode和algcompatible的主要区别是algcompatible额外提供了对于algorithmic的兼容性，如果不需要兼容的话，还是更推荐使用algpseudocode。导入algpseudocode或者algcompatible都会顺便把algorithmicx也导入进来，所以导入了algpseudocode或者algcompatible就不用再导入algorithmicx了。</p>
+<p>最后是省流版：目前LaTeX的算法伪代码宏包主要就两种选择。第一种是<code>\usepackage{algorithm, algpseudocode}</code>，第二种是<code>\usepackage{algorithm2e}</code>。它们的语法是不一样的，选择一个自己喜欢的就行。</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/from-future-import-annotations/"
+      ><span class="mr-1.5">←</span><span>关于Python的from __future__ import annotations</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/python-loop-else-clause/"
+      ><span>Python循环语句中的else子句</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="//localhost:1313/"></a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

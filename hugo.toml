@@ -1,1 +1,4 @@
-theme = 'ananke'
+theme = 'paper'
+
+[params]
+math = true

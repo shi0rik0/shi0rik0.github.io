@@ -2,18 +2,200 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on </title>
-    <link>//localhost:6001/posts/</link>
+    <link>//localhost:1313/posts/</link>
     <description>Recent content in Posts on </description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Mar 2024 19:13:34 +0800</lastBuildDate>
-    <atom:link href="//localhost:6001/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Jul 2024 20:53:30 +0800</lastBuildDate>
+    <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>配置VirtualBox的端口转发</title>
-      <link>//localhost:6001/posts/virtualbox-port-forward/</link>
+      <title>如何在VSCode中同时调试多个进程</title>
+      <link>//localhost:1313/posts/vscode-multi-target-debugging/</link>
+      <pubDate>Sat, 06 Jul 2024 20:53:30 +0800</pubDate>
+      <guid>//localhost:1313/posts/vscode-multi-target-debugging/</guid>
+      <description>假设有server.py和client.py两个程序需要同时启动，只需要这么编写.vscode/launch.json即可：&#xA;{ &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, &amp;#34;configurations&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Client&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/client.py&amp;#34; }, { &amp;#34;name&amp;#34;: &amp;#34;Server&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/server.py&amp;#34; } ], &amp;#34;compounds&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Server/Client&amp;#34;, &amp;#34;configurations&amp;#34;: [&amp;#34;Server&amp;#34;, &amp;#34;Client&amp;#34;], &amp;#34;stopAll&amp;#34;: true } ] } 接着运行名为Server/Client的启动项即可同时启动Server和Client两个调试任务。启用stopAll属性之后，一旦关闭正在调试的任何一个程序，就会将其他程序也一并关闭。</description>
+    </item>
+    <item>
+      <title>Python标准库的简易HTTP服务器</title>
+      <link>//localhost:1313/posts/python-stdlib-http-server/</link>
+      <pubDate>Sun, 30 Jun 2024 08:45:07 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-stdlib-http-server/</guid>
+      <description>Python标准库有一个名为http.server的模块，提供了简易的HTTP服务器功能。下面的示例代码用这个模块启动了一个简单的HTTP服务器。这个服务器只支持POST方法，会打印POST请求的信息，并返回一个固定的字符串。&#xA;from http.server import BaseHTTPRequestHandler, HTTPServer class MyHandler(BaseHTTPRequestHandler): def do_POST(self): print(&amp;#39;method:&amp;#39;, self.command) print(&amp;#39;path:&amp;#39;, self.path) print(&amp;#39;HTTP version:&amp;#39;, self.request_version) print(&amp;#39;headers:&amp;#39;, self.headers) content_length = int(self.headers[&amp;#39;Content-Length&amp;#39;]) body = self.rfile.read(content_length).decode() print(&amp;#39;body:&amp;#39;, body) response = b&amp;#39;Roger!&amp;#39; self.send_response(200) self.send_header(&amp;#39;Content-Length&amp;#39;, len(response)) self.end_headers() self.wfile.write(response) if __name__ == &amp;#39;__main__&amp;#39;: server = HTTPServer((&amp;#39;0.0.0.0&amp;#39;, 8080), MyHandler) server.serve_forever() 要测试这个服务器，可以发送一个简单的POST请求：&#xA;import requests res = requests.post(&amp;#39;http://localhost:8080/&amp;#39;, data=&amp;#39;Hello!&amp;#39;) print(res.text) 在服务端应该会看到类似下面的输出：&#xA;method: POST&#xD;path: /&#xD;HTTP version: HTTP/1.1&#xD;headers: Host: localhost:8080&#xD;User-Agent: python-requests/2.32.3&#xD;Accept-Encoding: gzip, deflate&#xD;Accept: */*&#xD;Connection: keep-alive&#xD;Content-Length: 6&#xD;body: Hello!</description>
+    </item>
+    <item>
+      <title>Ubuntu常用软件包</title>
+      <link>//localhost:1313/posts/ubuntu-common-packages/</link>
+      <pubDate>Sun, 23 Jun 2024 20:25:42 +0800</pubDate>
+      <guid>//localhost:1313/posts/ubuntu-common-packages/</guid>
+      <description>下面列出的软件包主要是命令名称和包名不一致的软件包。&#xA;包名 提供的命令 build-essential gcc, g++, make iproute2 ip iputils-ping ping </description>
+    </item>
+    <item>
+      <title>关于Pydantic model字段的别名</title>
+      <link>//localhost:1313/posts/pydantic-field-alias/</link>
+      <pubDate>Sat, 22 Jun 2024 19:12:00 +0800</pubDate>
+      <guid>//localhost:1313/posts/pydantic-field-alias/</guid>
+      <description>给model字段指定别名 Pydantic的model字段名是通过Python的类型注解设定的。这样一来当schema的字段名不是合法的Python变量名的时候就会带来问题。这种情况下可以用Field对象的alias属性来给字段指定名称。例如下面的例子给family_name这个字段设定了别名family-name。&#xA;from pydantic import BaseModel, Field class Person(BaseModel): family_name: str = Field(alias=&amp;#39;family-name&amp;#39;) json_str = &amp;#39;{&amp;#34;family-name&amp;#34;: &amp;#34;Smith&amp;#34;}&amp;#39; person = Person.model_validate_json(json_str) print(person.model_dump_json()) 上面的代码输出为：&#xA;{&amp;#34;family_name&amp;#34;:&amp;#34;Smith&amp;#34;} 可见，默认设置下Pydantic输出时会使用本名而非别名。如果希望使用别名，可以设置参数by_alias=True，也就是把代码最后一行改成：&#xA;print(person.model_dump_json(by_alias=True)) 使用alias generator自动生成别名 当一个model包含很多字段的时候，逐个手动填写别名就会很麻烦。这时候可以用alias generator自动生成别名。一个最简单的alias generator就是一个str-&amp;gt;str的函数。通过设置model的alias generator参数就可以自动生成别名：&#xA;from pydantic import BaseModel, ConfigDict def my_alias_generator(name: str) -&amp;gt; str: return name.replace(&amp;#39;_&amp;#39;, &amp;#39;-&amp;#39;) class Person(BaseModel): model_config = ConfigDict(alias_generator=my_alias_generator) family_name: str given_name: str json_str = &amp;#39;{&amp;#34;family-name&amp;#34;: &amp;#34;Smith&amp;#34;, &amp;#34;given-name&amp;#34;: &amp;#34;Alice&amp;#34;}&amp;#39; person = Person.model_validate_json(json_str) print(person.model_dump_json(by_alias=True)) pydantic.alias_generators模块中已经提供了一些常见的alias generator，可以直接使用。</description>
+    </item>
+    <item>
+      <title>使用Docker搭建PySpark学习环境</title>
+      <link>//localhost:1313/posts/pyspark-docker-env/</link>
+      <pubDate>Thu, 20 Jun 2024 21:27:25 +0800</pubDate>
+      <guid>//localhost:1313/posts/pyspark-docker-env/</guid>
+      <description>首先安装Docker，然后拉取Spark的Docker镜像：&#xA;docker pull apache/spark 然后创建一个Docker容器：&#xA;docker run -d -u root apache/spark tail -f /dev/null （注：这里的-u root的作用是把容器的默认用户设置成root，如果不这么做，VSCode就无法附加到容器上。）&#xA;接着就可以使用VSCode进入容器。进入后在终端里打开spark-shell：&#xA;/opt/spark/bin/spark-shell 打开之后会看到类似下面的输出，里面包含了Spark的版本。这里我的版本是3.5.1。&#xA;Welcome to&#xD;____ __&#xD;/ __/__ ___ _____/ /__&#xD;_\ \/ _ \/ _ `/ __/ &amp;#39;_/&#xD;/___/ .__/\_,_/_/ /_/\_\ version 3.5.1&#xD;/_/ 然后安装对应版本的PySpark：&#xA;pip install pyspark==3.5.1 注意：这里的PySpark版本一定要和Spark版本一致。如果不一致，并不会立刻报错，而是会出现有些代码可以运行，有些代码不能运行的情况！&#xA;安装完PySpark之后，就可以用Python编写Spark程序了。下面是一个简单的例子：&#xA;from pyspark import SparkContext sc = SparkContext.getOrCreate() rdd = sc.parallelize([&amp;#39;apple&amp;#39;, &amp;#39;apple&amp;#39;, &amp;#39;banana&amp;#39;, &amp;#39;banana&amp;#39;, &amp;#39;banana&amp;#39;]).map(lambda x: (x, 1)).reduceByKey(lambda x, y: x + y) print(rdd.</description>
+    </item>
+    <item>
+      <title>Python内置函数的key参数</title>
+      <link>//localhost:1313/posts/python-key-parameter/</link>
+      <pubDate>Wed, 19 Jun 2024 22:20:33 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-key-parameter/</guid>
+      <description>Python内置的sort()、sorted()、max()和min()都有一个可选的key参数。通过这个参数可以指定比较的基准。下面提供一些范例。&#xA;下面的代码会将list中的点按照l2-norm排序：&#xA;a = [(3, 4), (1, 6), (2, 5)] print(sorted(a, key=lambda x: x[0] ** 2 + x[1] ** 2)) 下面的代码可以获取list中l2-norm最大的点：&#xA;a = [(3, 4), (1, 6), (2, 5)] print(max(a, key=lambda x: x[0] ** 2 + x[1] ** 2)) </description>
+    </item>
+    <item>
+      <title>Python的代码格式化程序对比</title>
+      <link>//localhost:1313/posts/python-formatters/</link>
+      <pubDate>Wed, 19 Jun 2024 21:49:01 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-formatters/</guid>
+      <description>知名的Python代码格式化程序主要有3个：autopep8、black和yapf。其中autopep8是最古老的，它的开发已经不是很活跃了，因此不推荐使用。black和yapf的区别主要在于yapf提供了更多的格式化选项，让程序员可以根据自己的喜好调节代码风格。而black的作者有比较严重的洁癖，主张所有的Python代码都应该是统一的风格，因此几乎没有提供自定义选项。black甚至会强制要求字符串用双引号包裹。由于本人没有强迫症，因此还是更倾向于使用yapf。&#xA;在VSCode上就有一个现成的名为yapf的插件，只要安装这个插件就可以自动使用yapf格式化Python代码了。</description>
+    </item>
+    <item>
+      <title>BT种子文件和磁力链的区别</title>
+      <link>//localhost:1313/posts/torrent-file-vs-magnet-url/</link>
+      <pubDate>Sun, 16 Jun 2024 21:54:50 +0800</pubDate>
+      <guid>//localhost:1313/posts/torrent-file-vs-magnet-url/</guid>
+      <description>在BT分享网站上，经常可以看见一个资源有两种下载方式：BT种子文件或者磁力链。使用这两种方式有什么区别呢？先下结论：磁力链只存储了BT种子文件部分内容的hash值。使用磁力链下载文件的时候，要首先从拥有资源的节点上根据hash值获得BT种子文件，然后才能下载。因此可以说磁力链只是一个中间过程，BT种子文件才是最终的结果。&#xA;接下来将首先介绍使用BT协议下载文件的时候需要的信息，然后将分别介绍BT种子文件和磁力链分别存储了哪些信息。&#xA;BT协议需要的信息 要让BT协议工作，需要两个最关键的信息。第一个是tracker服务器的地址。第二个是文件名及其hash值。Tracker服务器的作用是让需要下载资源的节点能够发现拥有资源的节点。在这两个信息中，文件名及其hash值显然是更重要的，因为没有这个信息，我们就无法确定要下载的文件。至于tracker服务器地址这个信息其实并不是那么重要，因为tracker服务器并不是唯一且固定的，知名的tracker服务器列表在互联网上都可以查到，所以我们直接让BT客户端使用互联网上的tracker列表就行。&#xA;BT种子文件 BT种子文件本质上是一个使用某种特定编码的字典。这里的字典是指能够存储键值对的数据结构。在这个字典中有两个关键的字段：announce和info。annouce字段中存储了tracker服务器的地址，info字段中则存储了文件名及其hash值。&#xA;磁力链 磁力链本质上也是存储了若干键值对，其格式如下：&#xA;magnet:?{key1}={value1}&amp;amp;{key2}={value2}&amp;amp;{key3}={value3}... 常见的key有两个：tr、dn和xt。tr用于指定tracker服务器地址。dn用于指定该资源的名称，这个名称仅仅只是为了方便用户识别，理论上可以随意指定。xt则存储了BT种子文件中info字段的hash值。通过这个hash值，就可以在拥有该资源的节点上获取对应的BT种子。但很显然，如果找不到拥有该资源的节点，就无法通过磁力链获取文件的具体信息。&#xA;参考资料 https://en.wikipedia.org/wiki/Torrent_file https://en.wikipedia.org/wiki/Magnet_URI_scheme </description>
+    </item>
+    <item>
+      <title>Python 3.12的一个破坏兼容性的更改：移除distutils</title>
+      <link>//localhost:1313/posts/python-3-12-distutils/</link>
+      <pubDate>Mon, 10 Jun 2024 19:19:20 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-3-12-distutils/</guid>
+      <description>最近使用Python 3.12 import keras的时候，遇到了如下的错误：&#xA;ModuleNotFoundError: No module named &amp;#39;distutils&amp;#39; 根据StackOverflow的热心网友的解释，这是因为Python 3.12不再预装distutils了，可以通过手动安装setuptools来安装distutils。但是我安装了setuptools后依然不能解决问题，因此最终被迫降级到3.11。&#xA;在我看来，这种对兼容性的破坏是没有必要的。目前我还是推荐使用Python 3.11。</description>
+    </item>
+    <item>
+      <title>非日本居民能够使用的日本服务</title>
+      <link>//localhost:1313/posts/japan-services/</link>
+      <pubDate>Sat, 08 Jun 2024 19:58:12 +0800</pubDate>
+      <guid>//localhost:1313/posts/japan-services/</guid>
+      <description>本文列举了一些非日本居民也能够使用的日本服务（网购、预约系统等等）。非日本居民使用日本服务最大的障碍主要是手机号码。有些日本服务需要日本手机号码的短信验证才能够使用，而非日本居民是无法获得日本手机号码的。&#xA;网购 駿河屋：注册账号的时候需要填写日本电话号码和住址，不过乱填也可以。支付时可以用PayPal刷信用卡。&#xA;卡拉OK 日本的卡拉OK不需要注册会员就可以用，但是会员往往会有优惠价，所以这里列举的是可以注册会员的店铺。&#xA;ジャンカラ：无需任何信息即可注册账号。&#xA;カラオケ館：注册的时候不需要填写手机号码。&#xA;ネットカフェ 快活CLUB：第一次使用的时候需要到店内用护照注册账号。&#xA;在线订票 smartEX：这个网站有分日本版和海外版。日本版必须要日本手机号才能注册，而海外版不用。&#xA;えきねっと：这个网站也有分日本版和海外版，不过日本版的不需要日本手机号也可以使用，因此还是推荐使用日本版。&#xA;ハイウェイバスドットコム：不需要日本手机号就能注册。&#xA;高速バスネット：不需要日本手机号就能注册。</description>
+    </item>
+    <item>
+      <title>实用软件推荐</title>
+      <link>//localhost:1313/posts/useful-software/</link>
+      <pubDate>Tue, 21 May 2024 20:21:50 +0800</pubDate>
+      <guid>//localhost:1313/posts/useful-software/</guid>
+      <description>二进制编辑器、PE文件解析器等 HexEd.it：一个在线二进制编辑器。&#xA;PE-bear：开源的PE文件解析器。&#xA;Resource Hacker：编辑、提取PE文件的资源（.rsrc section）。</description>
+    </item>
+    <item>
+      <title>关于Python的from __future__ import annotations</title>
+      <link>//localhost:1313/posts/from-future-import-annotations/</link>
+      <pubDate>Mon, 20 May 2024 19:05:17 +0800</pubDate>
+      <guid>//localhost:1313/posts/from-future-import-annotations/</guid>
+      <description>在默认情况下，Python的type hints的值是真正的对象。请看下面的例子：&#xA;def add(a: int, b: int) -&amp;gt; int: return a + b print(add.__annotations__) # output: # {&amp;#39;a&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;, &amp;#39;b&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;, &amp;#39;return&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;} 但这么做会引发一些问题，比如说考虑下面的代码：&#xA;class Node: left: Node right: Node def __init__(self): pass 这段代码是无法运行的，因为执行left: Node的时候，Node对象还没有被创建。&#xA;from __future__ import annotations可以解决这个问题。一旦启用这个特性，type hints存储的值就会变成一个字符串。只有调用typing.get_type_hints()之后才会解析字符串，返回真正的对象。请看下面的例子：&#xA;from __future__ import annotations import typing def add(a: int, b: int) -&amp;gt; int: return a + b print(add.__annotations__) print(typing.get_type_hints(add)) # output: # {&amp;#39;a&amp;#39;: &amp;#39;int&amp;#39;, &amp;#39;b&amp;#39;: &amp;#39;int&amp;#39;, &amp;#39;return&amp;#39;: &amp;#39;int&amp;#39;} # {&amp;#39;a&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;, &amp;#39;b&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;, &amp;#39;return&amp;#39;: &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;} 由于这个特性改变了Python默认的行为，可能会导致依赖默认行为的库无法正常运行，因此Python将这个特性设计为可选的。</description>
+    </item>
+    <item>
+      <title>关于LaTeX的各种算法伪代码宏包</title>
+      <link>//localhost:1313/posts/latex-algorithm-packages/</link>
+      <pubDate>Sun, 19 May 2024 15:07:12 +0800</pubDate>
+      <guid>//localhost:1313/posts/latex-algorithm-packages/</guid>
+      <description>在用LaTeX描述算法的时候，经常会用到algorithm、algorithmic、algorithmicx、algpseudocode、algcompatible、algorithm2e等各种宏包。这些宏包关系比较复杂，并且用法也存在差异，经常会引发混淆。本文就对这些宏包的作用进行简要的介绍。&#xA;首先，这些宏包可以分为两大类，algorithm2e单独算作一类，而其他的是另一类。任何算法都可以分为算法标题和算法主体两个部分。对于algorithm2e宏包而言，算法标题和算法主体都通过algorithm环境来实现。而对于其他的宏包来说，算法标题通过algorithm环境实现，算法主体通过algorithmic环境实现。也就是说，如果你用的是algorithm2e宏包，那么你的算法代码大概就是下面这样：&#xA;\begin{algorithm} \caption{An algorithm with caption}\label{alg:cap} % 算法主体 \end{algorithm} 而如果用其他的宏包，那么就会变成下面这样：&#xA;\begin{algorithm} \caption{An algorithm with caption}\label{alg:cap} \begin{algorithmic} % 算法主体 \end{algorithmic} \end{algorithm} 所以说，如果你用的是algorithm2e宏包，那么只需要导入这一个宏包就行。algorithm2e宏包里面包含了一个一步到位的超强algorithm环境。而如果你用的是其他宏包，就必须组合使用两个宏包，一个是algorithm宏包，它提供了一个专门用于显示算法标题的algorithm环境，另外一个则是algorithmic、algorithmicx、algpseudocode和algcompatible中的其中一个，它们都提供了用于显示算法主体的algorithmic环境。&#xA;接下来介绍一下algorithmic、algorithmicx、algpseudocode和algcompatible的区别。algorithmic宏包是最早的，现在已经不推荐使用。algorithmicx是algorithmic的改进版，和algorithmic不同，algorithmicx没有提供预定义的语句，只提供了定义语句的命令，因此单纯用algorithmicx写伪代码会很麻烦。algpseudocode和algcompatible则是在algorithmicx的基础上提供了一组定义好的语句。algpseudocode和algcompatible的主要区别是algcompatible额外提供了对于algorithmic的兼容性，如果不需要兼容的话，还是更推荐使用algpseudocode。导入algpseudocode或者algcompatible都会顺便把algorithmicx也导入进来，所以导入了algpseudocode或者algcompatible就不用再导入algorithmicx了。&#xA;最后是省流版：目前LaTeX的算法伪代码宏包主要就两种选择。第一种是\usepackage{algorithm, algpseudocode}，第二种是\usepackage{algorithm2e}。它们的语法是不一样的，选择一个自己喜欢的就行。</description>
+    </item>
+    <item>
+      <title>Python循环语句中的else子句</title>
+      <link>//localhost:1313/posts/python-loop-else-clause/</link>
+      <pubDate>Thu, 16 May 2024 20:23:06 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-loop-else-clause/</guid>
+      <description>Python的循环语句（while和for语句）有一个特殊的语法，就是它们支持else子句。下面用一个例子来说明其作用。&#xA;for i in a: if find(i): do_something(i) break else: not_found() 在这个代码片段中，我们尝试在容器a中寻找第一个符合某种条件的元素，然后对这个元素进行某些处理。如果在容器中没有找到符合条件的元素，就执行另外的逻辑。&#xA;简单来说，当一个循环语句是正常结束的时候（也就是说不是通过break中止的），else子句才会执行。&#xA;如果不用else子句，那么就必须引入一个额外的bool变量才能实现相同的逻辑：&#xA;found = False for i in a: if find(i): found = True do_something(i) break if not found: not_found() 最后指出一点，else子句早在Python 2就已经被支持了，这不是一个最近才添加的语法糖，所以这个特性适用于几乎所有Python版本。</description>
+    </item>
+    <item>
+      <title>管理Windows“添加或删除程序”中的项目</title>
+      <link>//localhost:1313/posts/manage-add-remove-programs/</link>
+      <pubDate>Wed, 15 May 2024 20:45:17 +0800</pubDate>
+      <guid>//localhost:1313/posts/manage-add-remove-programs/</guid>
+      <description>在Windows的控制面板中点击“添加或删除程序”，便会看到当前电脑中安装的程序。这些程序的信息实际上是存储在注册表中的HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall。这个注册表项下的每一个子项都代表了一个安装的程序。每个项记录的信息可以参见微软的官方文档。下面简要介绍关键的信息。下面提到的值类型都是字符串。&#xA;DisplayName: 程序的名称。 DisplayIcon: 程序的图标。指定一个exe文件的路径，就会以这个exe文件的图标作为程序的图标。 DisplayVersion: 程序的版本。 Publisher: 程序的发行商。 InstallDate: 程序的安装日期。格式是YYYYMMDD，例如20081225。 UninstallString: 程序的卸载方式。在这里指定一个exe文件的路径，则卸载的时候会执行这个exe文件。 </description>
+    </item>
+    <item>
+      <title>《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</title>
+      <link>//localhost:1313/posts/priming-and-erp/</link>
+      <pubDate>Wed, 15 May 2024 17:16:13 +0800</pubDate>
+      <guid>//localhost:1313/posts/priming-and-erp/</guid>
+      <description>最近粗略翻阅了一本学术著作《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》。书中第二章和第三章针对普通话和闽南话的变调规则做了一个实验。实验流程是这样的，以普通话的“3-3→2-3”规则（比如辅导fu3dao3实际上会念成fu2dao3）为例。实验人员让被试者听一些词语，然后让被试者判断这些词语是不是真实存在的词语。在让被试者听一个词语之前，会播放这个词的第一字作为刺激。实验分为两组，第一组播放的刺激是变调前的发音，比如播放“辅导”之前会先播放“fu3”的声音。另一组则会提前播放变调后的发音，比如播放“辅导”之前会先播放“fu2”的声音。然后比较两组实验中被试者的反应时间和准确率。除了普通话的“3-3→2-3”规则，研究者还针对闽南语的“24→33”规则（例如“平等”）和“51→55”规则（例如“主持”）也做了相同的实验。&#xA;实验结果如下表所示：&#xA;变调规则 刺激效果（变调前） 刺激效果（变调后） 普通话“3-3→2-3” 有 无 闽南语“24→33” 有（较好） 有（较差） 闽南语“51→55” 有（较差） 有（较好） 表格中所说的“有刺激效果”的意思是，播放刺激声音后，被试者的反应速度和准确率提高了。&#xA;从实验结果可以看出，对于不同变调规则，播放变调前和变调后的声音的刺激效果是不一样，并且两者之间存在负相关的关系。&#xA;作者还认为，播放变调前声音的刺激效果与变调规则的能产性（productivity）是正相关的。依据是有文献（Modeling Taiwanese speakers’ knowledge of tone sandhi in reduplication）表明闽南语“24→33”规则的能产性高于“51→55”规则。&#xA;在该文献中，研究者做了这么一个实验：他们给闽南语母语者播放一个字A，然后让被试者念出这个字的重叠形式AA，例如“怪”→“怪怪”，然后分析变调的准确率。用于测试的字可以分为三组：AO、*AO和AG。其中AG是并不存在的字（不算声调的话，发音是合法的，但是算上声调就不存在这么发音的字），而AO和*AO都是真实存在的字，不过对于AO组的字而言，其重叠形式的词是真实存在的，而*AO组中的字并不存在重叠形式的词。下图给出了这三组字的例子：&#xA;该实验的测试结果如下图所示：&#xA;从中可以明显看出“24→33”规则的变调准确率远远高于“51→55”规则，特别是对于AG组。这就说明“24→33”规则的能产性更高。</description>
+    </item>
+    <item>
+      <title>1932-1939年的台语歌曲</title>
+      <link>//localhost:1313/posts/taiwanese-songs-1932-1939/</link>
+      <pubDate>Wed, 15 May 2024 16:06:36 +0800</pubDate>
+      <guid>//localhost:1313/posts/taiwanese-songs-1932-1939/</guid>
+      <description>最近阅读了厦门大学出版社出版的《传播与流变: 海峡两岸闽南语歌曲研究》，发现91页有一个表格，列举了所有1932-1939年的台语歌曲。于是我便在YouTube Music上建立了一个歌单，收集了表格中的经典台语歌曲。由于YouTube Music音源有限，因此遗漏了一些歌曲。这些缺失的歌曲可以在台湾声音一百年里面找到。&#xA;下面是原表格：</description>
+    </item>
+    <item>
+      <title>允许UWP应用访问localhost</title>
+      <link>//localhost:1313/posts/uwp-localhost/</link>
+      <pubDate>Sun, 12 May 2024 16:50:45 +0800</pubDate>
+      <guid>//localhost:1313/posts/uwp-localhost/</guid>
+      <description>由于Windows的安全限制，UWP应用默认是不能访问localhost的。这会导致UWP应用无法翻墙。要允许UWP应用访问localhost，就必须修改注册表。GitHub上有人编写了一个GUI程序，可以帮助我们修改注册表来解除限制。原作者的仓库地址在这里。可惜的是，原作者只提供了源代码，而没有提供编译好的可执行文件。不过好在GitHub上有人fork了仓库，提供了编译好的可执行文件。</description>
+    </item>
+    <item>
+      <title>使用date命令生成ISO 8601格式的当前时间</title>
+      <link>//localhost:1313/posts/generate-iso-8601/</link>
+      <pubDate>Sat, 11 May 2024 17:27:12 +0800</pubDate>
+      <guid>//localhost:1313/posts/generate-iso-8601/</guid>
+      <description>在很多场合可以看到形如2024-05-11T17:27:12+08:00的时间字符串。这是用ISO 8601格式表示的时间。字符串中的“T”是日期和时间和分隔符，而“+08:00”是时间的偏移量，也就是说时区是东八区。&#xA;在Linux下，可以使用date命令快速生成ISO 8601格式的当前时间：&#xA;date --iso-8601=seconds </description>
+    </item>
+    <item>
+      <title>在shebang中使用/usr/bin/env</title>
+      <link>//localhost:1313/posts/shebang-usr-bin-env/</link>
+      <pubDate>Sat, 11 May 2024 17:12:11 +0800</pubDate>
+      <guid>//localhost:1313/posts/shebang-usr-bin-env/</guid>
+      <description>假设我们要编写一个bash脚本，很多人会这么写shebang：&#xA;#!/bin/bash 这么做相当于是指定了绝对路径，但有时候，我们希望操作系统在PATH中寻找程序，这时候就可以利用/usr/bin/env：&#xA;#!/usr/bin/env bash </description>
+    </item>
+    <item>
+      <title>用Makefile编写生成多个目标文件的规则</title>
+      <link>//localhost:1313/posts/makefile-multiple-outputs/</link>
+      <pubDate>Sat, 27 Apr 2024 11:42:02 +0800</pubDate>
+      <guid>//localhost:1313/posts/makefile-multiple-outputs/</guid>
+      <description>假设现在有一个命令cmd，它会读取文件a，然后生成文件x和y。&#xA;#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdlib.h&amp;gt; int main() { puts(&amp;#34;Reading a.&amp;#34;); system(&amp;#34;cat a&amp;#34;); puts(&amp;#34;Creating x and y.&amp;#34;); system(&amp;#34;touch x y&amp;#34;); return 0; } 我们可能很自然地会写出这样的Makefile规则：&#xA;all: x y ;&#xD;x y: a&#xD;cmd 乍一看，这似乎没问题，但是当我们并发运行make的时候，问题就出现了。假设我们运行make -j2，就会看到以下输出：&#xA;Reading a.&#xD;Reading a.&#xD;Creating x and y.&#xD;Creating x and y. 也就是说，这个命令被执行了两次！这是因为，当我们编写&#xA;x y: a&#xD;cmd 的时候，实际上等价于&#xA;x: a&#xD;cmd&#xD;y: a&#xD;cmd 这样一来，当多线程运行的时候，make就会并行地同时生成x和y，导致重复执行。&#xA;后来，我在这个StackOverflow问题中找到了解决办法。&#xA;GNU Make v4.3之后的版本 GNU Make v4.3新增了grouped explicit targets的特性，我们只需要在冒号前面加一个&amp;amp;就可以解决问题。&#xA;x y &amp;amp;: a&#xD;cmd GNU Make v4.</description>
+    </item>
+    <item>
+      <title>使用screen命令在后台运行进程</title>
+      <link>//localhost:1313/posts/screen-background-process/</link>
+      <pubDate>Fri, 26 Apr 2024 17:01:50 +0800</pubDate>
+      <guid>//localhost:1313/posts/screen-background-process/</guid>
+      <description>谈到在后台运行进程，大多数人第一个想到的可能是直接在命令后面加一个&amp;amp;，这么做有一些缺点：&#xA;需要强行终止进程的时候，必须记住或者查询进程的名称、ID等等。 有时候使用&amp;amp;似乎会导致一个奇怪的bug，使得终端输出紊乱甚至无法使用（参见这个StackOverflow问题）。 因此，我发现使用screen命令是一种更好的解决方案。&#xA;使用screen创建后台进程 示例命令：&#xA;screen -dmS alice sleep 10 这个命令中，sleep 10是要执行的命令，-dm表示在后台运行而不是进入screen session，-S表示我们要给这个session起一个名字，这里我起名为alice。&#xA;使用screen终止后台进程 示例命令：&#xA;screen -S alice -X quit 这个命令中，-S alice指定了我们之前创建的名为alice的session，而-X quit表示让这个session执行quit命令（也就是退出）。</description>
+    </item>
+    <item>
+      <title>Windows下用HTTP代理连接SSH</title>
+      <link>//localhost:1313/posts/ssh-http-proxy-windows/</link>
+      <pubDate>Tue, 23 Apr 2024 10:44:18 +0800</pubDate>
+      <guid>//localhost:1313/posts/ssh-http-proxy-windows/</guid>
+      <description>这里假设使用的是Git提供的SSH。首先打开Git Bash，输入命令&#xA;where connect 查找connect.exe的路径，这里假设是C:\Program Files\Git\mingw64\bin\connect.exe。&#xA;然后打开SSH的配置文件，新增如下内容（将{hostname}:{port}替换成代理服务器地址）：&#xA;Host *&#xD;ProxyCommand &amp;#34;C:\Program Files\Git\mingw64\bin\connect.exe&amp;#34; -H {hostname}:{port} %h %p 这样就可以让所有SSH连接都经过代理服务器了。&#xA;注意，这里connect.exe一定要使用绝对路径，哪怕将所在目录添加到了PATH中也不行。</description>
+    </item>
+    <item>
+      <title>PowerShell脚本被禁止执行的解决方法</title>
+      <link>//localhost:1313/posts/powershell-policy/</link>
+      <pubDate>Tue, 09 Apr 2024 17:14:38 +0800</pubDate>
+      <guid>//localhost:1313/posts/powershell-policy/</guid>
+      <description>在Windows中执行PowerShell脚本的时候，默认情况下会得到下面的错误信息：&#xA;无法加载文件 xxx.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies。&#xA;这是因为默认情况下，Windows的PowerShell脚本执行策略是Restricted，也就是阻止运行任何脚本。要允许执行任意脚本，只需要将执行策略修改为Unrestricted即可：&#xA;Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser </description>
+    </item>
+    <item>
+      <title>代理服务器设置方法</title>
+      <link>//localhost:1313/posts/proxy-config/</link>
+      <pubDate>Sun, 31 Mar 2024 15:28:42 +0800</pubDate>
+      <guid>//localhost:1313/posts/proxy-config/</guid>
+      <description>由于GFW的存在，在中国境内访问境外的网站有时候会非常地慢。使用代理可以解决问题，但是有些程序没有使用系统全局的代理设置，需要自己手动配置代理。本文总结了一些需要手动配置的程序的配置方法。&#xA;npm npm config set proxy http://proxy:port&#xD;npm config set https-proxy http://proxy:port </description>
+    </item>
+    <item>
+      <title>使用Hugo &#43; GitHub Pages搭建个人博客</title>
+      <link>//localhost:1313/posts/hugo-github-pages/</link>
+      <pubDate>Sun, 17 Mar 2024 20:09:11 +0800</pubDate>
+      <guid>//localhost:1313/posts/hugo-github-pages/</guid>
+      <description>作为准备工作，你需要在电脑上安装Hugo。具体的安装步骤请参照Hugo官网。&#xA;然后在GitHub上创建一个仓库，仓库名为&amp;lt;username&amp;gt;.github.io。例如我的GitHub用户名为shi0rik0，就创建一个名为shi0rik0.github.io的仓库。&#xA;然后打开仓库的&amp;quot;Settings&amp;quot;-&amp;gt;&amp;ldquo;Pages&amp;rdquo;，将&amp;quot;Source&amp;quot;改为&amp;quot;GitHub Actions&amp;quot;。修改之后，你会看到下方有一些GitHub推荐的workflow，这里选择将Hugo的workflow添加到仓库中。&#xA;接下来执行以下命令。&#xA;git clone &amp;lt;your-repo&amp;gt; cd &amp;lt;your-repo&amp;gt; hugo new site . --force git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke echo &amp;#34;theme = &amp;#39;ananke&amp;#39;&amp;#34; &amp;gt;&amp;gt; hugo.toml hugo new content posts/my-first-post.md 执行完之后，你就已经初始化了一个使用ananke主题的Hugo网站，并创建了第一篇博文posts/my-first-post.md。打开posts/my-first-post.md，你应该会看到下面的内容：&#xA;+++&#xD;title = &amp;#39;My First Post&amp;#39;&#xD;date = 2024-01-14T07:07:07+01:00&#xD;draft = true&#xD;+++ 将title改成你想要的标题，并将draft改为false。接下来你就可以在下面用Markdown的语法写你的博文了。写完之后，可以用hugo server命令启动一个HTTP服务器来预览你的网站。确认完没问题后，就可以把更改提交到远程仓库上了。&#xA;git add . git commit -m &amp;#34;init blog&amp;#34; git push Push之后，GitHub的Hugo workflow会自动生成并部署网站。过一段时间后，你应该就可以在&amp;lt;username&amp;gt;.github.io上看到你的网站了。</description>
+    </item>
+    <item>
+      <title>主机与VirtualBox虚拟机的网络通信配置</title>
+      <link>//localhost:1313/posts/virtualbox-network/</link>
       <pubDate>Fri, 15 Mar 2024 19:13:34 +0800</pubDate>
-      <guid>//localhost:6001/posts/virtualbox-port-forward/</guid>
-      <description>VirtualBox默认的NAT网络只能支持虚拟机与主机或外网通信，主机是无法与虚拟机通信的。有时候我们需要让主机与虚拟机通信，比如让主机连接虚拟机的SSH等等。这种情况下，我们需要手动配置VirtualBox的端口转发。&#xA;首先打开虚拟机的设置。&#xA;把虚拟机网卡的连接方式改为“NAT网络”（注意不是默认的“网络地址转换(NAT)”！）。网络名称用默认已经建立好的“NatNetwork”就可以。&#xA;然后点击菜单栏的“管理”-&amp;gt;“工具”-&amp;gt;“网络管理器”。&#xA;最后在NAT网络的端口转发里新增一条转发规则即可。这里我增加的规则是将localhost:6312（主机）转发到10.0.2.15:22（虚拟机）。10.0.2.15是虚拟机的IP。</description>
+      <guid>//localhost:1313/posts/virtualbox-network/</guid>
+      <description>虚拟机连接主机 VirtualBox已经默认建立了一个网卡，可以通过这个网卡和主机通信。&#xA;首先点击菜单栏的“管理”-&amp;gt;“工具”-&amp;gt;“网络管理器”。&#xA;然后就可以在“仅主机(Host-Only)网络”里看到网卡的IP地址。图中所示的地址是192.168.56.1。&#xA;主机连接虚拟机 VirtualBox默认的NAT网络只能支持虚拟机与主机或外网通信，主机是无法与虚拟机通信的。有时候我们需要让主机与虚拟机通信，比如让主机连接虚拟机的SSH等等。这种情况下，我们需要手动配置VirtualBox的端口转发。&#xA;首先打开虚拟机的设置。&#xA;把虚拟机网卡的连接方式改为“NAT网络”（注意不是默认的“网络地址转换(NAT)”！）。网络名称用默认已经建立好的“NatNetwork”就可以。&#xA;然后点击菜单栏的“管理”-&amp;gt;“工具”-&amp;gt;“网络管理器”。&#xA;最后在NAT网络的端口转发里新增一条转发规则即可。这里我增加的规则是将localhost:6312（主机）转发到10.0.2.15:22（虚拟机）。10.0.2.15是虚拟机的IP。</description>
     </item>
   </channel>
 </rss>
