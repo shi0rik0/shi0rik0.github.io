@@ -6,8 +6,15 @@
     <description>Recent content on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Jul 2024 20:53:30 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jul 2024 11:10:14 +0800</lastBuildDate>
     <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据分析中的association问题及其算法</title>
+      <link>//localhost:1313/posts/association-algorithm/</link>
+      <pubDate>Sun, 07 Jul 2024 11:10:14 +0800</pubDate>
+      <guid>//localhost:1313/posts/association-algorithm/</guid>
+      <description>问题定义 顾客的交易记录可以用一个$m \times n$的矩阵来表示，如果第$i$个顾客购买了第$j$个商品，矩阵的第$i$行第$j$列就为1，否则为0。&#xA;接下来定义3个新概念：association、support和confidence。&#xA;一个association可以用$X \to Y$来表示，其中$X$和$Y$都是商品的集合，$X \cap Y = \emptyset$。&#xA;一个商品集合的support是指交易记录中包含这些商品的交易的个数。一个association的support是指$X \cup Y$的support。&#xA;一个association的confidence是指$X \cup Y$的support除以$X$的support。&#xA;所谓association问题就是，给定一个交易记录和两个常数$K_1$和$K_2$，希望找到所有的association，满足其support $\ge K_1$且confidence $\ge K_2$。&#xA;算法框架 总的算法可以分成两步：第一步是找到所有满足support $\ge K_1$的商品集合，第二步是在第一步的基础上再找出满足条件的association。&#xA;这个过程中最困难的是第一步，因为可以证明第一步是NP-hard的。&#xA;第二步的算法 假设我们已经找到了support $\ge K_1$的商品集合的集合$S_1$，那么最终结果$S_2$可以表示为：&#xA;$$ S_2 = \{ X \to Y \backslash X | X, Y \in S_1 \land X \subsetneq Y \land \\ \text{confidence}(X \to Y \backslash X) \ge K_2 \} $$&#xA;也就是说，枚举$S_1$中的任意两个商品集合$X$和$Y$，如果$X \subsetneq Y$且$X \to Y \backslash X$的confidence $\ge K_2$，那么就将$X \to Y \backslash X$添加到最终结果的集合中。</description>
+    </item>
     <item>
       <title>如何在VSCode中同时调试多个进程</title>
       <link>//localhost:1313/posts/vscode-multi-target-debugging/</link>
