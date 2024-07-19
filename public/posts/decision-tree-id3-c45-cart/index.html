@@ -44,7 +44,7 @@
   />
 
   
-  <title>Posts - </title>
+  <title>3种决策树：ID3、C4.5和CART - </title>
 
   
   <meta name="theme-color" />
@@ -53,11 +53,12 @@
   
   
   
-  
-  <meta
-    name="description"
-    content="A personal blog"
-  />
+  <meta name="description" content="假设有以下数据集，记录着一些人的种族、收入、是否有子女以及他们是否有购买保险：
+Race Income Child Insurance B H N Y W H Y Y W L Y Y W L Y Y B L N N B L N N B L N N W L N N 我们希望构造一棵决策树，来根据种族、收入、是否有子女这三个属性来预测一个人是否有购买保险。构造决策树的关键问题在于决定分叉处要根据哪个属性来进行分类。常见的选择方法有3种：ID3、C4.5和CART。
+在下文中，将属性集$\{\text{Race}, \text{Income}, \text{Child}\}$记作$D$。将要预测的目标Insurance记作$T$。
+ID3 ID3选择属性的方法是： $$ \argmax_{X\in D} H(T) - H(T|X) = \argmin_{X\in D} H(T|X) $$
+C4.5 C4.5选择属性的方法是： $$ \argmax_{X\in D} \frac{H(T) - H(T|X)}{H(X)} $$
+CART CART选择属性的方法是： $$ \argmax_{X \in D} G(T) - G(T|X) = \argmin_{X \in D} G(T|X) $$" />
   <meta name="author" content="" />
   
 
@@ -87,6 +88,12 @@
   
 
   
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
   
 
   
@@ -226,159 +233,142 @@
     >
       
 
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">3种决策树：ID3、C4.5和CART</h1>
 
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 7, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
 
-
-
-
-
-
-
- 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Python 3.12的一个破坏兼容性的更改：移除distutils</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jun 10, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/python-3-12-distutils/">Python 3.12的一个破坏兼容性的更改：移除distutils</a>
+  <section><p>假设有以下数据集，记录着一些人的种族、收入、是否有子女以及他们是否有购买保险：</p>
+<table>
+<thead>
+<tr>
+<th>Race</th>
+<th>Income</th>
+<th>Child</th>
+<th>Insurance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>H</td>
+<td>N</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>W</td>
+<td>H</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>W</td>
+<td>L</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>W</td>
+<td>L</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>B</td>
+<td>L</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>B</td>
+<td>L</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>B</td>
+<td>L</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>W</td>
+<td>L</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<p>我们希望构造一棵决策树，来根据种族、收入、是否有子女这三个属性来预测一个人是否有购买保险。构造决策树的关键问题在于决定分叉处要根据哪个属性来进行分类。常见的选择方法有3种：ID3、C4.5和CART。</p>
+<p>在下文中，将属性集$\{\text{Race}, \text{Income}, \text{Child}\}$记作$D$。将要预测的目标Insurance记作$T$。</p>
+<h2 id="id3">ID3</h2>
+<p>ID3选择属性的方法是：
+$$
+\argmax_{X\in D} H(T) - H(T|X) = \argmin_{X\in D} H(T|X)
+$$</p>
+<h2 id="c45">C4.5</h2>
+<p>C4.5选择属性的方法是：
+$$
+\argmax_{X\in D} \frac{H(T) - H(T|X)}{H(X)}
+$$</p>
+<h2 id="cart">CART</h2>
+<p>CART选择属性的方法是：
+$$
+\argmax_{X \in D} G(T) - G(T|X) = \argmin_{X \in D} G(T|X)
+$$</p>
+<p>其中$G(X)$是Gini指数，其定义为：
+$$
+G(X) = 1- \sum_{x} p^2(x)
+$$</p>
+<p>例如$G(T) = 1-(\frac{1}{2})^2-(\frac{1}{2})^2=\frac{1}{2}$。</p>
+<p>条件Gini指数的定义和条件信息熵类似：
+$$
+G(X|Y)=\sum_y p(y)G(X|Y=y)
+$$</p>
 </section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">非日本居民能够使用的日本服务</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jun 8, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/japan-services/">非日本居民能够使用的日本服务</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">实用软件推荐</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 21, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/useful-software/">实用软件推荐</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于Python的from __future__ import annotations</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 20, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/from-future-import-annotations/">关于Python的from __future__ import annotations</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于LaTeX的各种算法伪代码宏包</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 19, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/latex-algorithm-packages/">关于LaTeX的各种算法伪代码宏包</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Python循环语句中的else子句</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 16, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/python-loop-else-clause/">Python循环语句中的else子句</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">管理Windows“添加或删除程序”中的项目</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/manage-add-remove-programs/">管理Windows“添加或删除程序”中的项目</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/priming-and-erp/">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">1932-1939年的台语歌曲</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/taiwanese-songs-1932-1939/">1932-1939年的台语歌曲</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">允许UWP应用访问localhost</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 12, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/uwp-localhost/">允许UWP应用访问localhost</a>
-</section>
-
-
-
-
-<nav class="mt-16 flex">
-  
-  <a class="btn" href="/posts/">← Prev Page</a>
   
   
-  <a class="btn ml-auto" href="/posts/page/3/"
-    >Next Page →</a
-  >
-  
-</nav>
 
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/association-algorithm/"
+      ><span>数据分析中的association问题及其算法</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
 
 
     </main>
