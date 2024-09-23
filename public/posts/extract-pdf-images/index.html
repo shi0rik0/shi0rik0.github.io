@@ -44,7 +44,7 @@
   />
 
   
-  <title></title>
+  <title>使用pypdf库提取PDF文件中的图片 - </title>
 
   
   <meta name="theme-color" />
@@ -53,11 +53,8 @@
   
   
   
-  
-  <meta
-    name="description"
-    content="A personal blog"
-  />
+  <meta name="description" content="最近我遇到了这么一个问题：我用扫描仪扫描出来的文件是PDF格式的，然而我希望得到的是图片格式。从理论上说，扫描仪生成的PDF文件应该也只是图片的集合，因此只需要解析PDF文件就可以提取了。有一个名为pypdf的Python库就可以解析PDF文件中的对象。
+from pypdf import PdfReader reader = PdfReader(&#39;test.pdf&#39;) for p in reader.pages: for i in p.images: with open(i.name, &#39;wb&#39;) as f: f.write(i.data) 最后再补充说明一下PDF格式的大体原理。PDF文件是由许多“对象”组成的。每个对象都有唯一的编号。可以通过编号来引用对象。对象有很多种，文字、图片乃至页都可以是对象。页对象里面记录着每一页有哪些对象，以及这些对象的位置、大小等。" />
   <meta name="author" content="" />
   
 
@@ -87,6 +84,12 @@
   
 
   
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
   
 
   
@@ -226,161 +229,71 @@
     >
       
 
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">使用pypdf库提取PDF文件中的图片</h1>
 
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Sep 13, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
 
-
-
-
-
-
-
-
-
- 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">非日本居民能够使用的日本服务</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jun 8, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/japan-services/">非日本居民能够使用的日本服务</a>
+  <section><p>最近我遇到了这么一个问题：我用扫描仪扫描出来的文件是PDF格式的，然而我希望得到的是图片格式。从理论上说，扫描仪生成的PDF文件应该也只是图片的集合，因此只需要解析PDF文件就可以提取了。有一个名为<code>pypdf</code>的Python库就可以解析PDF文件中的对象。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pypdf <span style="color:#f92672">import</span> PdfReader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>reader <span style="color:#f92672">=</span> PdfReader(<span style="color:#e6db74">&#39;test.pdf&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> reader<span style="color:#f92672">.</span>pages:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> p<span style="color:#f92672">.</span>images:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> open(i<span style="color:#f92672">.</span>name, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>            f<span style="color:#f92672">.</span>write(i<span style="color:#f92672">.</span>data)
+</span></span></code></pre></div><p>最后再补充说明一下PDF格式的大体原理。PDF文件是由许多“对象”组成的。每个对象都有唯一的编号。可以通过编号来引用对象。对象有很多种，文字、图片乃至页都可以是对象。页对象里面记录着每一页有哪些对象，以及这些对象的位置、大小等。</p>
 </section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">实用软件推荐</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 21, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/useful-software/">实用软件推荐</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于Python的from __future__ import annotations</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 20, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/from-future-import-annotations/">关于Python的from __future__ import annotations</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于LaTeX的各种算法伪代码宏包</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 19, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/latex-algorithm-packages/">关于LaTeX的各种算法伪代码宏包</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Python循环语句中的else子句</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 16, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/python-loop-else-clause/">Python循环语句中的else子句</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">管理Windows“添加或删除程序”中的项目</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/manage-add-remove-programs/">管理Windows“添加或删除程序”中的项目</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/priming-and-erp/">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">1932-1939年的台语歌曲</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/taiwanese-songs-1932-1939/">1932-1939年的台语歌曲</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">允许UWP应用访问localhost</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 12, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/uwp-localhost/">允许UWP应用访问localhost</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">使用date命令生成ISO 8601格式的当前时间</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 11, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/generate-iso-8601/">使用date命令生成ISO 8601格式的当前时间</a>
-</section>
-
-
-
-
-<nav class="mt-16 flex">
-  
-  <a class="btn" href="/page/2/">← Prev Page</a>
   
   
-  <a class="btn ml-auto" href="/page/4/"
-    >Next Page →</a
-  >
-  
-</nav>
 
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/service-command/"
+      ><span class="mr-1.5">←</span><span>关于Linux的service命令</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/nginx-tutorial/"
+      ><span>Nginx入门教程</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
 
 
     </main>

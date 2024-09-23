@@ -1,0 +1,335 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>用Python的zipfile标准库解压非标准编码的zip压缩包 - </title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="时至今日（2024年），依然有很多日本的zip压缩包采用Shift JIS编码。使用7-Zip等软件解压这些压缩包的时候，会发现文件名都是乱码。WinRAR支持指定压缩包的文本编码，但是我个人不怎么喜欢WinRAR。因此，我决定使用Python的标准库来解压非标准编码的zip压缩包。
+对于3.11及3.11之后的Python版本，ZipFile提供了一个metadata_encoding的参数，通过指定这个参数就可以设置编码：
+import zipfile with zipfile.ZipFile(&#39;foo.zip&#39;, metadata_encoding=&#39;cp932&#39;) as f: f.extractall() 如果是3.11之前的Python版本，对于非UTF-8编码的压缩包，ZipFile默认使用的是cp437编码，因此我们需要手动修改字符串编码，然后再解压：
+import zipfile import os import shutil with zipfile.ZipFile(&#39;foo.zip&#39;) as f: for name in f.namelist(): path = name.encode(&#39;cp437&#39;).decode(&#39;cp932&#39;) if path[-1] == &#39;/&#39;: os.makedirs(path, exist_ok=True) else: src = f.open(name) os.makedirs(os.path.dirname(path), exist_ok=True) with open(path, &#39;wb&#39;) as dst: shutil.copyfileobj(src, dst) 顺带一提，根据这个StackOverflow问题，zip标准规定：若UTF-8的flag没有被设置，那么文件名的编码就应该是cp437，但是实际实现很多都没有遵从标准。" />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="//localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="//localhost:1313/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="//localhost:1313/favicon.ico" />
+  <link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.126.1">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="//localhost:1313/"
+      ></a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">用Python的zipfile标准库解压非标准编码的zip压缩包</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 19, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>时至今日（2024年），依然有很多日本的zip压缩包采用Shift JIS编码。使用7-Zip等软件解压这些压缩包的时候，会发现文件名都是乱码。WinRAR支持指定压缩包的文本编码，但是我个人不怎么喜欢WinRAR。因此，我决定使用Python的标准库来解压非标准编码的zip压缩包。</p>
+<p>对于3.11及3.11之后的Python版本，<code>ZipFile</code>提供了一个<code>metadata_encoding</code>的参数，通过指定这个参数就可以设置编码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> zipfile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(<span style="color:#e6db74">&#39;foo.zip&#39;</span>, metadata_encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cp932&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    f<span style="color:#f92672">.</span>extractall()
+</span></span></code></pre></div><p>如果是3.11之前的Python版本，对于非UTF-8编码的压缩包，<code>ZipFile</code>默认使用的是cp437编码，因此我们需要手动修改字符串编码，然后再解压：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> zipfile
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> shutil
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(<span style="color:#e6db74">&#39;foo.zip&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> name <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>namelist():
+</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> name<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;cp437&#39;</span>)<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;cp932&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> path[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;/&#39;</span>:
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>makedirs(path, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            src <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>open(name)
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>makedirs(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(path), exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> open(path, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> dst:
+</span></span><span style="display:flex;"><span>                shutil<span style="color:#f92672">.</span>copyfileobj(src, dst)
+</span></span></code></pre></div><p>顺带一提，根据<a href="https://stackoverflow.com/questions/13261347/correctly-decoding-zip-entry-file-names-cp437-utf-8-or">这个StackOverflow问题</a>，zip标准规定：若UTF-8的flag没有被设置，那么文件名的编码就应该是cp437，但是实际实现很多都没有遵从标准。</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/disable-bitlocker/"
+      ><span class="mr-1.5">←</span><span>Windows家庭版关闭BitLocker</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/pixel-volte-in-china/"
+      ><span>解决Pixel 8无法使用中国SIM卡接打电话的问题</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="//localhost:1313/"></a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

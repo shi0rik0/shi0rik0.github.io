@@ -22,4 +22,17 @@ docker build -f dockerfiles/a.Dockerfile dockerfiles
 
 ## Docker Compose
 
-Docker compose的当前目录是`docker-compose.yml`配置文件所在的目录，而**不是**执行`docker-compose`命令时shell的当前目录，并且没有选项可以更改它。
+Docker Compose的当前目录是`docker-compose.yml`配置文件所在的目录，而**不是**执行`docker compose`命令时shell的当前目录，并且没有选项可以更改它。
+
+但是这里又有一个坑点：在Docker Compose的配置文件中可以指定从本地的Dockerfile构建镜像，例如：
+
+```yaml
+services:
+  service-0:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+```
+
+这里面的`context`选项是相对于`docker-compose.yml`所在目录的，但是`dockerfile`选项却是相对于`context`的。也就是说，假如上面的配置文件位于`/foo/docker-compose.yml`，那么`context`就是`/`，而Dockerfile应该位于`/docker/Dockerfile`。
+

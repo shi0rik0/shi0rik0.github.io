@@ -1,0 +1,341 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>关于在data warehouse中实例化view的优化问题 - </title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="问题背景 假设我们有一个名为SalesTable的SQL表格，这个表格有4列：time_、kind、shop和sales，分别代表某个时间段内某个种类的商品在某家商店的销售额。
+假如我们需要统计每个时间段内每个种类商品的销售总额，那么我们可以这么编写SQL语句：
+SELECT time_, kind, SUM(sales) FROM SalesTable GROUP BY time_, kind; 我们不妨将这个查询结果记作TK。
+假如我们还需要统计每个种类商品的销售总额，那么我们可以这么编写SQL语句：
+SELECT kind, SUM(sales) FROM SalesTable GROUP BY kind; 我们将这个查询结果记作K。要想得到K，还有另外一种方法，就是利用前面的TK：
+SELECT kind, SUM(sales) FROM TK GROUP BY kind; 假如我们将TK的结果实例化（materialize，也就是缓存），那么就可以减少查询K的开销，因为TK的行数显然比SalesTable少得多。
+问题定义 给定一个有向图$(G,E)$，图中的每个节点代表一个表格或者view，如果节点$B$可以由节点$A$得到，就建立一条边$A \to B$。我们可以实例化一些节点，把实例化的节点集合记作$M$。把一个节点的“邻居”和它自身记作$N(V)$，也就是说，$N(V)=\{V\} \cup \{W| W \to V \in E\}$。把一个节点的行数（数据规模）记作$S(V)$。一个节点的查询代价定义为 $$ C(V) = \min_{W\in N(V) \cap M} S(W) $$
+现在的问题是，我们已经实例化了一些节点（通常是根表格，比如说上面例子中的SalesTable），我们希望再实例化$K$个节点（$K$是一个常数），使得总查询代价$C=\sum_{V\in G}C(V)$能够减少最多。我们将这个问题的结果定义为这个减少量。
+贪心算法 我们可以采用贪心算法解决这个问题，也就是说，我们依次选取节点加入$M$中，每次都选取一个能使$C$减少最多的节点。
+Gupta [1] 证明了这么一个结论：贪心算法的近似比是$1-\frac{1}{e} \approx 0.63$。也就是说，贪心算法得到的结果至少是最优结果的0.63倍。
+参考资料 [1] Gupta, H. (1997). Selection of views to materialize in a data warehouse." />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="//localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="//localhost:1313/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="//localhost:1313/favicon.ico" />
+  <link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.126.1">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="//localhost:1313/"
+      ></a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">关于在data warehouse中实例化view的优化问题</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 14, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><h2 id="问题背景">问题背景</h2>
+<p>假设我们有一个名为SalesTable的SQL表格，这个表格有4列：time_、kind、shop和sales，分别代表某个时间段内某个种类的商品在某家商店的销售额。</p>
+<p>假如我们需要统计每个时间段内每个种类商品的销售总额，那么我们可以这么编写SQL语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> time_, kind, <span style="color:#66d9ef">SUM</span>(sales) <span style="color:#66d9ef">FROM</span> SalesTable <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> time_, kind;
+</span></span></code></pre></div><p>我们不妨将这个查询结果记作TK。</p>
+<p>假如我们还需要统计每个种类商品的销售总额，那么我们可以这么编写SQL语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> kind, <span style="color:#66d9ef">SUM</span>(sales) <span style="color:#66d9ef">FROM</span> SalesTable <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> kind;
+</span></span></code></pre></div><p>我们将这个查询结果记作K。要想得到K，还有另外一种方法，就是利用前面的TK：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> kind, <span style="color:#66d9ef">SUM</span>(sales) <span style="color:#66d9ef">FROM</span> TK <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> kind;
+</span></span></code></pre></div><p>假如我们将TK的结果实例化（materialize，也就是缓存），那么就可以减少查询K的开销，因为TK的行数显然比SalesTable少得多。</p>
+<h2 id="问题定义">问题定义</h2>
+<p>给定一个有向图$(G,E)$，图中的每个节点代表一个表格或者view，如果节点$B$可以由节点$A$得到，就建立一条边$A \to B$。我们可以实例化一些节点，把实例化的节点集合记作$M$。把一个节点的“邻居”和它自身记作$N(V)$，也就是说，$N(V)=\{V\} \cup \{W| W \to V \in E\}$。把一个节点的行数（数据规模）记作$S(V)$。一个节点的查询代价定义为
+$$
+C(V) = \min_{W\in N(V) \cap M} S(W)
+$$</p>
+<p>现在的问题是，我们已经实例化了一些节点（通常是根表格，比如说上面例子中的SalesTable），我们希望再实例化$K$个节点（$K$是一个常数），使得总查询代价$C=\sum_{V\in G}C(V)$能够减少最多。我们将这个问题的结果定义为这个<strong>减少量</strong>。</p>
+<h2 id="贪心算法">贪心算法</h2>
+<p>我们可以采用贪心算法解决这个问题，也就是说，我们依次选取节点加入$M$中，每次都选取一个能使$C$减少最多的节点。</p>
+<p>Gupta [1] 证明了这么一个结论：贪心算法的近似比是$1-\frac{1}{e} \approx 0.63$。也就是说，贪心算法得到的结果至少是最优结果的0.63倍。</p>
+<h2 id="参考资料">参考资料</h2>
+<p>[1] Gupta, H. (1997). Selection of views to materialize in a data warehouse. In Database Theory—ICDT'97: 6th International Conference Delphi, Greece, January 8–10, 1997 Proceedings 6 (pp. 98-112). Springer Berlin Heidelberg.</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/pixel-volte-in-china/"
+      ><span class="mr-1.5">←</span><span>解决Pixel 8无法使用中国SIM卡接打电话的问题</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/decision-tree-id3-c45-cart/"
+      ><span>3种决策树：ID3、C4.5和CART</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="//localhost:1313/"></a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

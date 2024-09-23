@@ -6,8 +6,78 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Jul 2024 21:13:55 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2024 13:06:36 +0800</lastBuildDate>
     <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1932-1939年的台语歌曲</title>
+      <link>//localhost:1313/posts/test/</link>
+      <pubDate>Fri, 20 Sep 2024 13:06:36 +0800</pubDate>
+      <guid>//localhost:1313/posts/test/</guid>
+      <description>asdfasdf</description>
+    </item>
+    <item>
+      <title>现代HTML的最简模板</title>
+      <link>//localhost:1313/posts/modern-html-template/</link>
+      <pubDate>Tue, 17 Sep 2024 10:58:17 +0800</pubDate>
+      <guid>//localhost:1313/posts/modern-html-template/</guid>
+      <description>下面是使用Vite创建的前端项目的默认index.html文件内容：&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;link rel=&amp;#34;icon&amp;#34; href=&amp;#34;/favicon.ico&amp;#34;&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1.0&amp;#34;&amp;gt; &amp;lt;title&amp;gt;Vite App&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 下面对这里面的一些关键点进行解说。&#xA;&amp;lt;!DOCTYPE html&amp;gt; 这一行表示该文件采用的是HTML 5标准。&#xA;&amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; lang=&amp;quot;en&amp;quot;表示这个网页是英文网页，如果是大陆的中文网页，可以写lang=&amp;quot;zh-CN&amp;quot;。&#xA;&amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; 这一行表示源文件使用的编码是UTF-8。&#xA;&amp;lt;link rel=&amp;#34;icon&amp;#34; href=&amp;#34;/favicon.ico&amp;#34;&amp;gt; 这一行指定了网页的图标。&#xA;&amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1.0&amp;#34;&amp;gt; 这一行是对网页的viewport进行设置，使得网页在移动设备上浏览时不会缩放。由于早期大部分网页没有针对移动设备的小屏幕进行适配，因此移动设备访问网页时，默认会渲染一个大于屏幕尺寸的网页，然后用户可以通过手指触摸操作来移动网页的显示区域。由于现在很多网页都是原生适配移动端的，在这种情况下缩放就没有必要了，可以通过这个设置来禁用缩放。&#xA;&amp;lt;title&amp;gt;Vite App&amp;lt;/title&amp;gt; 这一行指定了网页的标题。</description>
+    </item>
+    <item>
+      <title>关于Linux的service命令</title>
+      <link>//localhost:1313/posts/service-command/</link>
+      <pubDate>Sat, 14 Sep 2024 17:07:00 +0800</pubDate>
+      <guid>//localhost:1313/posts/service-command/</guid>
+      <description>service是Linux中一个用来管理服务的常用命令。它是一个高层命令，实际上调用的是底层的systemctl等命令。尽管service命令只支持对于服务的常用管理操作，但是对于绝大多数场合已经足够了。使用service命令还可以使我们不用关注底层命令的差异。&#xA;使用service命令列出当前所有服务的状态：&#xA;sudo service --status-all 使用service命令启动或关闭某个服务（例如ssh）：&#xA;sudo service ssh start sudo service ssh stop 下面的命令可以查看某个服务（例如ssh）支持的所有操作：&#xA;sudo service ssh </description>
+    </item>
+    <item>
+      <title>使用pypdf库提取PDF文件中的图片</title>
+      <link>//localhost:1313/posts/extract-pdf-images/</link>
+      <pubDate>Fri, 13 Sep 2024 15:11:17 +0800</pubDate>
+      <guid>//localhost:1313/posts/extract-pdf-images/</guid>
+      <description>最近我遇到了这么一个问题：我用扫描仪扫描出来的文件是PDF格式的，然而我希望得到的是图片格式。从理论上说，扫描仪生成的PDF文件应该也只是图片的集合，因此只需要解析PDF文件就可以提取了。有一个名为pypdf的Python库就可以解析PDF文件中的对象。&#xA;from pypdf import PdfReader reader = PdfReader(&amp;#39;test.pdf&amp;#39;) for p in reader.pages: for i in p.images: with open(i.name, &amp;#39;wb&amp;#39;) as f: f.write(i.data) 最后再补充说明一下PDF格式的大体原理。PDF文件是由许多“对象”组成的。每个对象都有唯一的编号。可以通过编号来引用对象。对象有很多种，文字、图片乃至页都可以是对象。页对象里面记录着每一页有哪些对象，以及这些对象的位置、大小等。</description>
+    </item>
+    <item>
+      <title>Nginx入门教程</title>
+      <link>//localhost:1313/posts/nginx-tutorial/</link>
+      <pubDate>Thu, 05 Sep 2024 17:19:00 +0800</pubDate>
+      <guid>//localhost:1313/posts/nginx-tutorial/</guid>
+      <description>启动、终止与重新加载 启动nginx：&#xA;nginx -c conf/nginx.conf -c参数可以指定配置文件的路径，默认为conf/nginx.conf。&#xA;终止nginx：&#xA;nginx -s quit 重新加载配置文件：&#xA;nginx -s reload 最简单的配置文件 下面的配置文件会监听8000端口，并将网站根目录设为/www/data。&#xA;events {&#xD;}&#xD;http {&#xD;server {&#xD;listen 8000;&#xD;location / {&#xD;root /www/data;&#xD;}&#xD;}&#xD;} 这里要补充几点，首先是http块下面可以有多个server块，例如：&#xA;http {&#xD;server {&#xD;listen 8000;&#xD;location / {&#xD;root /www/data;&#xD;}&#xD;}&#xD;server {&#xD;listen 8001;&#xD;location / {&#xD;root /www/data2;&#xD;}&#xD;}&#xD;} 这样就会同时监听8000和8001两个端口。&#xA;还有一点就是location /中的/是用来匹配网站的根目录，这里也就是匹配了网站的所有路径。一个server块下面也可以有多个location块，用来匹配不同的路径。比如说：&#xA;http {&#xD;server {&#xD;listen 8000;&#xD;location / {&#xD;root /www/data;&#xD;}&#xD;location /images/ {&#xD;root /www/data2;&#xD;}&#xD;}&#xD;} 这样一来，访问http://localhost:8000/images/img.</description>
+    </item>
+    <item>
+      <title>关于VSCode的launch.json</title>
+      <link>//localhost:1313/posts/vscode-debugging-config/</link>
+      <pubDate>Sat, 20 Jul 2024 15:51:01 +0800</pubDate>
+      <guid>//localhost:1313/posts/vscode-debugging-config/</guid>
+      <description>VSCode工作区的.vscode/launch.json文件中存储着调试和运行的配置。&#xA;基本结构 launch.json的基本结构如下：&#xA;{ &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, &amp;#34;configurations&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;foo&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/bar.py&amp;#34; }, // ... ] } 首先有一个version字段指定配置文件的版本，然后在configurations数组中指定调试或运行的参数。&#xA;必须参数 每一个启动项都必须有这4个参数：&#xA;name：显示在VSCode界面上的启动项名称。 type：要使用的debugger。debugger都是由插件提供的。 request：只能是launch或者attach。launch表示调试时由VSCode启动一个新的进程，attach则表示让debugger连接到现有的进程。一般都是选择launch。 program：程序的入口文件。 debugpy的参数 cwd参数可以指定运行脚本时的工作目录，默认值是${workspaceFolder}。&#xA;justMyCode参数的默认值是true，表示不调试不在当前工作区内的代码（比如标准库、第三方库），建议设置为false。&#xA;切换调试和运行模式 在VSCode里，调试和运行是共享配置的。按下F5会开始调试当前的选中项，按下Ctrl+F5则会以运行模式（不启动debugger）启动当前的选中项。&#xA;同时调试多个对象 假设有server.py和client.py两个程序需要同时启动，只需要这么编写.vscode/launch.json即可：&#xA;{ &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, &amp;#34;configurations&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Client&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/client.py&amp;#34; }, { &amp;#34;name&amp;#34;: &amp;#34;Server&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/server.py&amp;#34; } ], &amp;#34;compounds&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Server/Client&amp;#34;, &amp;#34;configurations&amp;#34;: [&amp;#34;Server&amp;#34;, &amp;#34;Client&amp;#34;], &amp;#34;stopAll&amp;#34;: true } ] } 接着运行名为Server/Client的启动项即可同时启动Server和Client两个调试任务。启用stopAll属性之后，一旦关闭正在调试的任何一个程序，就会将其他程序也一并关闭。</description>
+    </item>
+    <item>
+      <title>Windows家庭版关闭BitLocker</title>
+      <link>//localhost:1313/posts/disable-bitlocker/</link>
+      <pubDate>Sat, 20 Jul 2024 12:09:30 +0800</pubDate>
+      <guid>//localhost:1313/posts/disable-bitlocker/</guid>
+      <description>现在很多笔记本出厂时会默认启用BitLocker。通过运行manage-bde -status命令可以查看分区是否有启用BitLocker（这个命令需要管理员权限）。&#xA;如果是家庭版的Windows（可以通过运行winver确认），那么BitLocker可以用系统设置的“隐私和安全性”-&amp;gt;“设备加密”进行设置。这个“设备加密”就是家庭版Windows自带的阉割版BitLocker。关闭“设备加密”就可以解密了。解密完成后，可以通过运行manage-bde -status命令确认是否已经解密成功。</description>
+    </item>
+    <item>
+      <title>用Python的zipfile标准库解压非标准编码的zip压缩包</title>
+      <link>//localhost:1313/posts/python-unzip-encoding/</link>
+      <pubDate>Fri, 19 Jul 2024 11:33:34 +0800</pubDate>
+      <guid>//localhost:1313/posts/python-unzip-encoding/</guid>
+      <description>时至今日（2024年），依然有很多日本的zip压缩包采用Shift JIS编码。使用7-Zip等软件解压这些压缩包的时候，会发现文件名都是乱码。WinRAR支持指定压缩包的文本编码，但是我个人不怎么喜欢WinRAR。因此，我决定使用Python的标准库来解压非标准编码的zip压缩包。&#xA;对于3.11及3.11之后的Python版本，ZipFile提供了一个metadata_encoding的参数，通过指定这个参数就可以设置编码：&#xA;import zipfile with zipfile.ZipFile(&amp;#39;foo.zip&amp;#39;, metadata_encoding=&amp;#39;cp932&amp;#39;) as f: f.extractall() 如果是3.11之前的Python版本，对于非UTF-8编码的压缩包，ZipFile默认使用的是cp437编码，因此我们需要手动修改字符串编码，然后再解压：&#xA;import zipfile import os import shutil with zipfile.ZipFile(&amp;#39;foo.zip&amp;#39;) as f: for name in f.namelist(): path = name.encode(&amp;#39;cp437&amp;#39;).decode(&amp;#39;cp932&amp;#39;) if path[-1] == &amp;#39;/&amp;#39;: os.makedirs(path, exist_ok=True) else: src = f.open(name) os.makedirs(os.path.dirname(path), exist_ok=True) with open(path, &amp;#39;wb&amp;#39;) as dst: shutil.copyfileobj(src, dst) 顺带一提，根据这个StackOverflow问题，zip标准规定：若UTF-8的flag没有被设置，那么文件名的编码就应该是cp437，但是实际实现很多都没有遵从标准。</description>
+    </item>
+    <item>
+      <title>解决Pixel 8无法使用中国SIM卡接打电话的问题</title>
+      <link>//localhost:1313/posts/pixel-volte-in-china/</link>
+      <pubDate>Fri, 19 Jul 2024 09:09:48 +0800</pubDate>
+      <guid>//localhost:1313/posts/pixel-volte-in-china/</guid>
+      <description>最近购买了一台日版的Pixel 8，发现使用国内的SIM卡的时候可以流量上网，但无法正常接打电话和收发短信。经过调查，发现问题的根源是这样的：&#xA;由于Pixel手机没有在国内上市，所以谷歌在Pixel上加了地区锁，导致国内SIM卡无法使用5G，最多只能用到4G。 国内的4G通信基本上都使用了一种名为VoLTE的技术。这种技术需要手机的配置文件里有运营商的信息。由于Pixel手机没有在国内上市，自然Pixel里面也没有写入国内运营商的信息，因此无法使用VoLTE。 综上所述，解决办法有两种：如果是5G SIM卡，那么可以尝试root之后解开地区锁使用5G。还有一种更通用的办法是修改配置文件，让Pixel能够使用4G VoLTE。修改配置文件无需root。&#xA;接下来介绍免root开启VoLTE的方法。&#xA;首先在Google Play上安装Shizuku和Pixel IMS。&#xA;然后打开Shizuku，点击“配对”，然后点击“开发者选项”，然后打开“无线调试”的开关，然后进入“无线调试”的菜单（点击“无线调试”的开关按钮的左边），然后点击“使用配对码配对设备”，这时候会看到一个6位数的WLAN配对码。然后通知栏里Shizuku会提示你输入配对码，输入后回到Shizuku，点击“启动”即可。&#xA;然后打开Pxiel IMS。允许Shizuku给Pxiel IMS授权。然后在SIM卡配置的菜单里打开“启用VoLTE”的选项即可。&#xA;注意：通过这种方法开启的VoLTE，在手机重启之后就会失效。需要重新按照上面的方法再启用一次。&#xA;参考资料 https://cnzhx.net/blog/enable-volte-for-pixel-6-7-without-root/</description>
+    </item>
+    <item>
+      <title>关于在data warehouse中实例化view的优化问题</title>
+      <link>//localhost:1313/posts/data-warehouse-problem/</link>
+      <pubDate>Sun, 14 Jul 2024 15:14:01 +0800</pubDate>
+      <guid>//localhost:1313/posts/data-warehouse-problem/</guid>
+      <description>问题背景 假设我们有一个名为SalesTable的SQL表格，这个表格有4列：time_、kind、shop和sales，分别代表某个时间段内某个种类的商品在某家商店的销售额。&#xA;假如我们需要统计每个时间段内每个种类商品的销售总额，那么我们可以这么编写SQL语句：&#xA;SELECT time_, kind, SUM(sales) FROM SalesTable GROUP BY time_, kind; 我们不妨将这个查询结果记作TK。&#xA;假如我们还需要统计每个种类商品的销售总额，那么我们可以这么编写SQL语句：&#xA;SELECT kind, SUM(sales) FROM SalesTable GROUP BY kind; 我们将这个查询结果记作K。要想得到K，还有另外一种方法，就是利用前面的TK：&#xA;SELECT kind, SUM(sales) FROM TK GROUP BY kind; 假如我们将TK的结果实例化（materialize，也就是缓存），那么就可以减少查询K的开销，因为TK的行数显然比SalesTable少得多。&#xA;问题定义 给定一个有向图$(G,E)$，图中的每个节点代表一个表格或者view，如果节点$B$可以由节点$A$得到，就建立一条边$A \to B$。我们可以实例化一些节点，把实例化的节点集合记作$M$。把一个节点的“邻居”和它自身记作$N(V)$，也就是说，$N(V)=\{V\} \cup \{W| W \to V \in E\}$。把一个节点的行数（数据规模）记作$S(V)$。一个节点的查询代价定义为 $$ C(V) = \min_{W\in N(V) \cap M} S(W) $$&#xA;现在的问题是，我们已经实例化了一些节点（通常是根表格，比如说上面例子中的SalesTable），我们希望再实例化$K$个节点（$K$是一个常数），使得总查询代价$C=\sum_{V\in G}C(V)$能够减少最多。我们将这个问题的结果定义为这个减少量。&#xA;贪心算法 我们可以采用贪心算法解决这个问题，也就是说，我们依次选取节点加入$M$中，每次都选取一个能使$C$减少最多的节点。&#xA;Gupta [1] 证明了这么一个结论：贪心算法的近似比是$1-\frac{1}{e} \approx 0.63$。也就是说，贪心算法得到的结果至少是最优结果的0.63倍。&#xA;参考资料 [1] Gupta, H. (1997). Selection of views to materialize in a data warehouse.</description>
+    </item>
     <item>
       <title>3种决策树：ID3、C4.5和CART</title>
       <link>//localhost:1313/posts/decision-tree-id3-c45-cart/</link>
@@ -21,13 +91,6 @@
       <pubDate>Sun, 07 Jul 2024 11:10:14 +0800</pubDate>
       <guid>//localhost:1313/posts/association-algorithm/</guid>
       <description>问题定义 顾客的交易记录可以用一个$m \times n$的矩阵来表示，如果第$i$个顾客购买了第$j$个商品，矩阵的第$i$行第$j$列就为1，否则为0。&#xA;接下来定义3个新概念：association、support和confidence。&#xA;一个association可以用$X \to Y$来表示，其中$X$和$Y$都是商品的集合，$X \cap Y = \emptyset$。&#xA;一个商品集合的support是指交易记录中包含这些商品的交易的个数。一个association的support是指$X \cup Y$的support。&#xA;一个association的confidence是指$X \cup Y$的support除以$X$的support。&#xA;所谓association问题就是，给定一个交易记录和两个常数$K_1$和$K_2$，希望找到所有的association，满足其support $\ge K_1$且confidence $\ge K_2$。&#xA;算法框架 总的算法可以分成两步：第一步是找到所有满足support $\ge K_1$的商品集合，第二步是在第一步的基础上再找出满足条件的association。&#xA;这个过程中最困难的是第一步，因为可以证明第一步是NP-hard的。&#xA;第二步的算法 假设我们已经找到了support $\ge K_1$的商品集合的集合$S_1$，那么最终结果$S_2$可以表示为：&#xA;$$ S_2 = \{ X \to Y \backslash X | X, Y \in S_1 \land X \subsetneq Y \land \\ \text{confidence}(X \to Y \backslash X) \ge K_2 \} $$&#xA;也就是说，枚举$S_1$中的任意两个商品集合$X$和$Y$，如果$X \subsetneq Y$且$X \to Y \backslash X$的confidence $\ge K_2$，那么就将$X \to Y \backslash X$添加到最终结果的集合中。</description>
-    </item>
-    <item>
-      <title>如何在VSCode中同时调试多个进程</title>
-      <link>//localhost:1313/posts/vscode-multi-target-debugging/</link>
-      <pubDate>Sat, 06 Jul 2024 20:53:30 +0800</pubDate>
-      <guid>//localhost:1313/posts/vscode-multi-target-debugging/</guid>
-      <description>假设有server.py和client.py两个程序需要同时启动，只需要这么编写.vscode/launch.json即可：&#xA;{ &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, &amp;#34;configurations&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Client&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/client.py&amp;#34; }, { &amp;#34;name&amp;#34;: &amp;#34;Server&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;debugpy&amp;#34;, &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, &amp;#34;program&amp;#34;: &amp;#34;${workspaceFolder}/server.py&amp;#34; } ], &amp;#34;compounds&amp;#34;: [ { &amp;#34;name&amp;#34;: &amp;#34;Server/Client&amp;#34;, &amp;#34;configurations&amp;#34;: [&amp;#34;Server&amp;#34;, &amp;#34;Client&amp;#34;], &amp;#34;stopAll&amp;#34;: true } ] } 接着运行名为Server/Client的启动项即可同时启动Server和Client两个调试任务。启用stopAll属性之后，一旦关闭正在调试的任何一个程序，就会将其他程序也一并关闭。</description>
     </item>
     <item>
       <title>Python标准库的简易HTTP服务器</title>

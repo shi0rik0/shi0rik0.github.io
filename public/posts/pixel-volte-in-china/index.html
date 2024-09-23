@@ -44,7 +44,7 @@
   />
 
   
-  <title></title>
+  <title>解决Pixel 8无法使用中国SIM卡接打电话的问题 - </title>
 
   
   <meta name="theme-color" />
@@ -53,11 +53,14 @@
   
   
   
-  
-  <meta
-    name="description"
-    content="A personal blog"
-  />
+  <meta name="description" content="最近购买了一台日版的Pixel 8，发现使用国内的SIM卡的时候可以流量上网，但无法正常接打电话和收发短信。经过调查，发现问题的根源是这样的：
+由于Pixel手机没有在国内上市，所以谷歌在Pixel上加了地区锁，导致国内SIM卡无法使用5G，最多只能用到4G。 国内的4G通信基本上都使用了一种名为VoLTE的技术。这种技术需要手机的配置文件里有运营商的信息。由于Pixel手机没有在国内上市，自然Pixel里面也没有写入国内运营商的信息，因此无法使用VoLTE。 综上所述，解决办法有两种：如果是5G SIM卡，那么可以尝试root之后解开地区锁使用5G。还有一种更通用的办法是修改配置文件，让Pixel能够使用4G VoLTE。修改配置文件无需root。
+接下来介绍免root开启VoLTE的方法。
+首先在Google Play上安装Shizuku和Pixel IMS。
+然后打开Shizuku，点击“配对”，然后点击“开发者选项”，然后打开“无线调试”的开关，然后进入“无线调试”的菜单（点击“无线调试”的开关按钮的左边），然后点击“使用配对码配对设备”，这时候会看到一个6位数的WLAN配对码。然后通知栏里Shizuku会提示你输入配对码，输入后回到Shizuku，点击“启动”即可。
+然后打开Pxiel IMS。允许Shizuku给Pxiel IMS授权。然后在SIM卡配置的菜单里打开“启用VoLTE”的选项即可。
+注意：通过这种方法开启的VoLTE，在手机重启之后就会失效。需要重新按照上面的方法再启用一次。
+参考资料 https://cnzhx.net/blog/enable-volte-for-pixel-6-7-without-root/" />
   <meta name="author" content="" />
   
 
@@ -87,6 +90,12 @@
   
 
   
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
   
 
   
@@ -226,161 +235,74 @@
     >
       
 
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">解决Pixel 8无法使用中国SIM卡接打电话的问题</h1>
 
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 19, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
 
-
-
-
-
-
-
-
-
- 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">非日本居民能够使用的日本服务</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jun 8, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/japan-services/">非日本居民能够使用的日本服务</a>
+  <section><p>最近购买了一台日版的Pixel 8，发现使用国内的SIM卡的时候可以流量上网，但无法正常接打电话和收发短信。经过调查，发现问题的根源是这样的：</p>
+<ol>
+<li>由于Pixel手机没有在国内上市，所以谷歌在Pixel上加了地区锁，导致国内SIM卡无法使用5G，最多只能用到4G。</li>
+<li>国内的4G通信基本上都使用了一种名为VoLTE的技术。这种技术需要手机的配置文件里有运营商的信息。由于Pixel手机没有在国内上市，自然Pixel里面也没有写入国内运营商的信息，因此无法使用VoLTE。</li>
+</ol>
+<p>综上所述，解决办法有两种：如果是5G SIM卡，那么可以尝试root之后解开地区锁使用5G。还有一种更通用的办法是修改配置文件，让Pixel能够使用4G VoLTE。修改配置文件无需root。</p>
+<p>接下来介绍免root开启VoLTE的方法。</p>
+<p>首先在Google Play上安装Shizuku和Pixel IMS。</p>
+<p>然后打开Shizuku，点击“配对”，然后点击“开发者选项”，然后打开“无线调试”的开关，然后进入“无线调试”的菜单（点击“无线调试”的开关按钮的左边），然后点击“使用配对码配对设备”，这时候会看到一个6位数的WLAN配对码。然后通知栏里Shizuku会提示你输入配对码，输入后回到Shizuku，点击“启动”即可。</p>
+<p>然后打开Pxiel IMS。允许Shizuku给Pxiel IMS授权。然后在SIM卡配置的菜单里打开“启用VoLTE”的选项即可。</p>
+<p>注意：通过这种方法开启的VoLTE，在手机<strong>重启之后就会失效</strong>。需要重新按照上面的方法再启用一次。</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://cnzhx.net/blog/enable-volte-for-pixel-6-7-without-root/">https://cnzhx.net/blog/enable-volte-for-pixel-6-7-without-root/</a></p>
 </section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">实用软件推荐</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 21, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/useful-software/">实用软件推荐</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于Python的from __future__ import annotations</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 20, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/from-future-import-annotations/">关于Python的from __future__ import annotations</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于LaTeX的各种算法伪代码宏包</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 19, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/latex-algorithm-packages/">关于LaTeX的各种算法伪代码宏包</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Python循环语句中的else子句</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 16, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/python-loop-else-clause/">Python循环语句中的else子句</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">管理Windows“添加或删除程序”中的项目</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/manage-add-remove-programs/">管理Windows“添加或删除程序”中的项目</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/priming-and-erp/">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">1932-1939年的台语歌曲</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/taiwanese-songs-1932-1939/">1932-1939年的台语歌曲</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">允许UWP应用访问localhost</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 12, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/uwp-localhost/">允许UWP应用访问localhost</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">使用date命令生成ISO 8601格式的当前时间</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 11, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/generate-iso-8601/">使用date命令生成ISO 8601格式的当前时间</a>
-</section>
-
-
-
-
-<nav class="mt-16 flex">
-  
-  <a class="btn" href="/page/2/">← Prev Page</a>
   
   
-  <a class="btn ml-auto" href="/page/4/"
-    >Next Page →</a
-  >
-  
-</nav>
 
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/python-unzip-encoding/"
+      ><span class="mr-1.5">←</span><span>用Python的zipfile标准库解压非标准编码的zip压缩包</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/data-warehouse-problem/"
+      ><span>关于在data warehouse中实例化view的优化问题</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
 
 
     </main>

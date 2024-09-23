@@ -1,0 +1,406 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en"
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Nginx入门教程 - </title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="启动、终止与重新加载 启动nginx：
+nginx -c conf/nginx.conf -c参数可以指定配置文件的路径，默认为conf/nginx.conf。
+终止nginx：
+nginx -s quit 重新加载配置文件：
+nginx -s reload 最简单的配置文件 下面的配置文件会监听8000端口，并将网站根目录设为/www/data。
+events {}http {server {listen 8000;location / {root /www/data;}}} 这里要补充几点，首先是http块下面可以有多个server块，例如：
+http {server {listen 8000;location / {root /www/data;}}server {listen 8001;location / {root /www/data2;}}} 这样就会同时监听8000和8001两个端口。
+还有一点就是location /中的/是用来匹配网站的根目录，这里也就是匹配了网站的所有路径。一个server块下面也可以有多个location块，用来匹配不同的路径。比如说：
+http {server {listen 8000;location / {root /www/data;}location /images/ {root /www/data2;}}} 这样一来，访问http://localhost:8000/images/img." />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="//localhost:1313/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="//localhost:1313/theme.png" />
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+  
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    renderMathInElement(document.body, {
+      
+      
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      
+      throwOnError: false,
+    }),
+  );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="//localhost:1313/favicon.ico" />
+  <link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.126.1">
+
+  
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="//localhost:1313/"
+      ></a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Nginx入门教程</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Sep 5, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><h2 id="启动终止与重新加载">启动、终止与重新加载</h2>
+<p>启动nginx：</p>
+<pre tabindex="0"><code>nginx -c conf/nginx.conf
+</code></pre><p><code>-c</code>参数可以指定配置文件的路径，默认为<code>conf/nginx.conf</code>。</p>
+<p>终止nginx：</p>
+<pre tabindex="0"><code>nginx -s quit
+</code></pre><p>重新加载配置文件：</p>
+<pre tabindex="0"><code>nginx -s reload
+</code></pre><h2 id="最简单的配置文件">最简单的配置文件</h2>
+<p>下面的配置文件会监听8000端口，并将网站根目录设为<code>/www/data</code>。</p>
+<pre tabindex="0"><code>events {
+
+}
+
+http {
+    server {
+        listen 8000;
+
+        location / {
+            root /www/data;
+        }
+    }
+}
+</code></pre><p>这里要补充几点，首先是http块下面可以有多个server块，例如：</p>
+<pre tabindex="0"><code>http {
+    server {
+        listen 8000;
+
+        location / {
+            root /www/data;
+        }
+    }
+    
+    server {
+        listen 8001;
+
+        location / {
+            root /www/data2;
+        }
+    }
+}
+</code></pre><p>这样就会同时监听8000和8001两个端口。</p>
+<p>还有一点就是<code>location /</code>中的<code>/</code>是用来匹配网站的根目录，这里也就是匹配了网站的所有路径。一个server块下面也可以有多个location块，用来匹配不同的路径。比如说：</p>
+<pre tabindex="0"><code>http {
+    server {
+        listen 8000;
+
+        location / {
+            root /www/data;
+        }
+
+        location /images/ {
+            root /www/data2;
+        }
+    }
+}
+</code></pre><p>这样一来，访问<code>http://localhost:8000/images/img.png</code>的时候就会返回<code>/www/data2/images/img.png</code>。</p>
+<h2 id="反向代理">反向代理</h2>
+<pre tabindex="0"><code>http {
+    server {
+        listen 8000;
+
+        location / {
+            proxy_pass http://127.0.0.1:8001;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+}
+</code></pre><p>上面就是一个最基本的反向代理配置，会将8000端口收到的消息转发到本地的8001端口。两行<code>proxy_set_header</code>配置是可选的，它们会在转发消息的头部增加<code>Host</code>和<code>X-Forwarded-For</code>两个字段，这些字段可能会被一些上游应用使用。</p>
+<h2 id="负载均衡">负载均衡</h2>
+<pre tabindex="0"><code>http {
+    upstream backend {
+        server 127.0.0.1:8001 weight=3;
+        server 127.0.0.1:8002;
+    }
+
+    server {
+        listen 8000;
+
+        location / {
+            proxy_pass http://backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
+}
+</code></pre><p>上面就是一个最基本的负载均衡配置。Nginx默认采用的是Round Robin算法，每个服务器默认权重为1。上面的配置文件下，两个上游服务器的负载比约为3：1。</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/extract-pdf-images/"
+      ><span class="mr-1.5">←</span><span>使用pypdf库提取PDF文件中的图片</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/vscode-debugging-config/"
+      ><span>关于VSCode的launch.json</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2024
+    <a class="link" href="//localhost:1313/"></a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

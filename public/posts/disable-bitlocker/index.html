@@ -44,7 +44,7 @@
   />
 
   
-  <title></title>
+  <title>Windows家庭版关闭BitLocker - </title>
 
   
   <meta name="theme-color" />
@@ -53,11 +53,8 @@
   
   
   
-  
-  <meta
-    name="description"
-    content="A personal blog"
-  />
+  <meta name="description" content="现在很多笔记本出厂时会默认启用BitLocker。通过运行manage-bde -status命令可以查看分区是否有启用BitLocker（这个命令需要管理员权限）。
+如果是家庭版的Windows（可以通过运行winver确认），那么BitLocker可以用系统设置的“隐私和安全性”-&gt;“设备加密”进行设置。这个“设备加密”就是家庭版Windows自带的阉割版BitLocker。关闭“设备加密”就可以解密了。解密完成后，可以通过运行manage-bde -status命令确认是否已经解密成功。" />
   <meta name="author" content="" />
   
 
@@ -87,6 +84,12 @@
   
 
   
+  
+  <script
+    defer
+    src="//localhost:1313/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
   
 
   
@@ -226,161 +229,63 @@
     >
       
 
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Windows家庭版关闭BitLocker</h1>
 
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 20, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
 
-
-
-
-
-
-
-
-
- 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">非日本居民能够使用的日本服务</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jun 8, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/japan-services/">非日本居民能够使用的日本服务</a>
+  <section><p>现在很多笔记本出厂时会默认启用BitLocker。通过运行<code>manage-bde -status</code>命令可以查看分区是否有启用BitLocker（这个命令需要管理员权限）。</p>
+<p>如果是家庭版的Windows（可以通过运行<code>winver</code>确认），那么BitLocker可以用系统设置的“隐私和安全性”-&gt;“设备加密”进行设置。这个“设备加密”就是家庭版Windows自带的阉割版BitLocker。关闭“设备加密”就可以解密了。解密完成后，可以通过运行<code>manage-bde -status</code>命令确认是否已经解密成功。</p>
 </section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">实用软件推荐</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 21, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/useful-software/">实用软件推荐</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于Python的from __future__ import annotations</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 20, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/from-future-import-annotations/">关于Python的from __future__ import annotations</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">关于LaTeX的各种算法伪代码宏包</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 19, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/latex-algorithm-packages/">关于LaTeX的各种算法伪代码宏包</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Python循环语句中的else子句</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 16, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/python-loop-else-clause/">Python循环语句中的else子句</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">管理Windows“添加或删除程序”中的项目</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/manage-add-remove-programs/">管理Windows“添加或删除程序”中的项目</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/priming-and-erp/">《基于启动和脑电波实验研究普通话和闽南语连续变调词的储存模式》书摘</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">1932-1939年的台语歌曲</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 15, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/taiwanese-songs-1932-1939/">1932-1939年的台语歌曲</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">允许UWP应用访问localhost</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 12, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/uwp-localhost/">允许UWP应用访问localhost</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">使用date命令生成ISO 8601格式的当前时间</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 11, 2024</time
-  >
-  <a class="absolute inset-0 text-[0]" href="//localhost:1313/posts/generate-iso-8601/">使用date命令生成ISO 8601格式的当前时间</a>
-</section>
-
-
-
-
-<nav class="mt-16 flex">
-  
-  <a class="btn" href="/page/2/">← Prev Page</a>
   
   
-  <a class="btn ml-auto" href="/page/4/"
-    >Next Page →</a
-  >
-  
-</nav>
 
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/vscode-debugging-config/"
+      ><span class="mr-1.5">←</span><span>关于VSCode的launch.json</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="//localhost:1313/posts/python-unzip-encoding/"
+      ><span>用Python的zipfile标准库解压非标准编码的zip压缩包</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
 
 
     </main>

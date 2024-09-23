@@ -3,19 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>//localhost:1313/</loc>
-    <lastmod>2024-07-07T21:13:55+08:00</lastmod>
+    <lastmod>2024-09-17T10:58:17+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/</loc>
+    <lastmod>2024-09-17T10:58:17+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/modern-html-template/</loc>
+    <lastmod>2024-09-17T10:58:17+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/service-command/</loc>
+    <lastmod>2024-09-14T17:07:00+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/extract-pdf-images/</loc>
+    <lastmod>2024-09-13T15:11:17+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/nginx-tutorial/</loc>
+    <lastmod>2024-09-05T17:19:00+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/vscode-debugging-config/</loc>
+    <lastmod>2024-07-20T15:51:01+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/disable-bitlocker/</loc>
+    <lastmod>2024-07-20T12:09:30+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/python-unzip-encoding/</loc>
+    <lastmod>2024-07-19T11:33:34+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/pixel-volte-in-china/</loc>
+    <lastmod>2024-07-19T09:09:48+08:00</lastmod>
+  </url><url>
+    <loc>//localhost:1313/posts/data-warehouse-problem/</loc>
+    <lastmod>2024-07-14T15:14:01+08:00</lastmod>
   </url><url>
     <loc>//localhost:1313/posts/decision-tree-id3-c45-cart/</loc>
     <lastmod>2024-07-07T21:13:55+08:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/</loc>
-    <lastmod>2024-07-07T21:13:55+08:00</lastmod>
-  </url><url>
     <loc>//localhost:1313/posts/association-algorithm/</loc>
     <lastmod>2024-07-07T11:10:14+08:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/vscode-multi-target-debugging/</loc>
-    <lastmod>2024-07-06T20:53:30+08:00</lastmod>
   </url><url>
     <loc>//localhost:1313/posts/python-stdlib-http-server/</loc>
     <lastmod>2024-06-30T08:45:07+08:00</lastmod>
