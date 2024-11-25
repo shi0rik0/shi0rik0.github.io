@@ -11,4 +11,3 @@ draft: false
 | build-essential | gcc, g++, make |
 | iproute2        | ip             |
 | iputils-ping    | ping           |
-

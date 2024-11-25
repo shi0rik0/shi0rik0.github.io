@@ -4,7 +4,7 @@ date: 2024-07-20T15:51:01+08:00
 draft: false
 ---
 
-VSCode工作区的`.vscode/launch.json`文件中存储着调试和运行的配置。
+VSCode 工作区的`.vscode/launch.json`文件中存储着调试和运行的配置。
 
 ## 基本结构
 
@@ -12,16 +12,16 @@ VSCode工作区的`.vscode/launch.json`文件中存储着调试和运行的配�
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-          "name": "foo",
-          "type": "debugpy",
-          "request": "launch",
-          "program": "${workspaceFolder}/bar.py"
-        },
-        // ...
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "foo",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/bar.py"
+    }
+    // ...
+  ]
 }
 ```
 
@@ -29,14 +29,14 @@ VSCode工作区的`.vscode/launch.json`文件中存储着调试和运行的配�
 
 ## 必须参数
 
-每一个启动项都必须有这4个参数：
+每一个启动项都必须有这 4 个参数：
 
-1. `name`：显示在VSCode界面上的启动项名称。
-2. `type`：要使用的debugger。debugger都是由插件提供的。
-3. `request`：只能是`launch`或者`attach`。`launch`表示调试时由VSCode启动一个新的进程，`attach`则表示让debugger连接到现有的进程。一般都是选择`launch`。
+1. `name`：显示在 VSCode 界面上的启动项名称。
+2. `type`：要使用的 debugger。debugger 都是由插件提供的。
+3. `request`：只能是`launch`或者`attach`。`launch`表示调试时由 VSCode 启动一个新的进程，`attach`则表示让 debugger 连接到现有的进程。一般都是选择`launch`。
 4. `program`：程序的入口文件。
 
-## debugpy的参数
+## debugpy 的参数
 
 `cwd`参数可以指定运行脚本时的工作目录，默认值是`${workspaceFolder}`。
 
@@ -44,7 +44,7 @@ VSCode工作区的`.vscode/launch.json`文件中存储着调试和运行的配�
 
 ## 切换调试和运行模式
 
-在VSCode里，调试和运行是共享配置的。按下F5会开始调试当前的选中项，按下Ctrl+F5则会以运行模式（不启动debugger）启动当前的选中项。
+在 VSCode 里，调试和运行是共享配置的。按下 F5 会开始调试当前的选中项，按下 Ctrl+F5 则会以运行模式（不启动 debugger）启动当前的选中项。
 
 ## 同时调试多个对象
 
@@ -52,28 +52,28 @@ VSCode工作区的`.vscode/launch.json`文件中存储着调试和运行的配�
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-          "name": "Client",
-          "type": "debugpy",
-          "request": "launch",
-          "program": "${workspaceFolder}/client.py"
-        },
-        {
-          "name": "Server",
-          "type": "debugpy",
-          "request": "launch",
-          "program": "${workspaceFolder}/server.py"
-        }
-    ],
-    "compounds": [
-        {
-          "name": "Server/Client",
-          "configurations": ["Server", "Client"],
-          "stopAll": true
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Client",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/client.py"
+    },
+    {
+      "name": "Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.py"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Server/Client",
+      "configurations": ["Server", "Client"],
+      "stopAll": true
+    }
+  ]
 }
 ```
 
