@@ -1,5 +1,5 @@
 ---
-title: "Windows环境下Python 3 UTF-8编码的一些坑"
+title: "Windows环境下Python UTF-8编码的一些坑"
 date: 2024-11-30T22:02:01+08:00
 draft: false
 ---
