@@ -4,6 +4,8 @@ date: 2024-10-31T14:16:00+08:00
 draft: false
 ---
 
+2024 年 12 月 28 日更新：似乎[有消息](https://linux.do/t/topic/297635)称 CloudFlare 更新了用户条款，禁止将其服务用于代理用途。因此这个方法可能有风险。
+
 由于中国封锁了 Docker Hub，导致在国内用 Docker 的时候会遇到很多问题。一个最简单的办法就是使用镜像，然而很遗憾的是，很多镜像站也被封锁了，因此我不得不自己建立一个 Docker Hub 镜像。在 GitHub 上，我发现一个[使用 CloudFlare Workers 建立 Docker Hub 镜像的项目](https://github.com/ciiiii/cloudflare-docker-proxy)。CloudFlare Workers 是有免费版的，这就意味着可以免费建立一个 Docker Hub 镜像。然而原项目的 README 文档写得实在是太简陋了，我摸索了很久才最终测试成功，因此就将一个更详细的步骤写在这里。
 
 首先当然是要注册一个 CloudFlare 账号，然后点击原项目 README 中的“Deploy with Workers”的按钮，按照网页的提示操作。操作完成之后，应该会：
