@@ -24,13 +24,13 @@ npx tailwindcss init -p
 
 ```js
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   theme: {
     extend: {},
   },
   plugins: [],
-};
+}
 ```
 
 要让 Tailwind CSS 生效，还需要让网页导入 Tailwind CSS 的样式。比如说，可以在全局的 CSS 文件中加入以下内容：
